@@ -6,6 +6,8 @@ implement a PEPPOL AS2 server. This server discards all incoming documents!
 
 This AS2 server is based on my **[as2-lib](https://github.com/phax/as2-lib)** library, as well as on **[as2-peppol-servlet](https://github.com/phax/as2-peppol-servlet)**, **[peppol-sbdh](https://github.com/phax/peppol-sbdh)** and **[ph-ubl](https://github.com/phax/ph-ubl)**.
 
+This project is licensed under the Apache 2 License.
+
 #Project structure
 This project is a Java 1.6+ web application and as such meant to be used in an application
 server (like Tomcat, Jetty etc.).
