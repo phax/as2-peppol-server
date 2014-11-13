@@ -20,3 +20,14 @@ It consists of the following major components:
 #Before you start
 Before this project can be run in a useful way a PKCS12 keystore with your PEPPOL AP certificate must be provided. By default the keystore must be located in `as2-server-data\server-certs.p12` and must have the password `peppol`. To change this edit the `<certificates>` element in the `as2-server-config.xml` file.
 
+#Run it
+The easiest way to run and debug the application is to execute class `com.helger.peppol.as2server.jetty.RunInJettyPEPPOLAS2` from within your IDE (as a standard Java application). It starts up a minimal server and listens on port 8080. The servlet that receives PEPPOL messages listens to path `/as2/` and supports only HTTP method POST.
+After startup locate your browser to `http://localhost:8080` to check if it is running.
+
+#Test it
+Now that the AS2 server is running you may have a closer look at my [as2-peppol-client](https://github.com/phax/as2-peppol-client) project which lets you send AS2 messages to a server.
+If both client and server are configured correctly a successful message exchange should be easily possible.
+
+---
+
+On Twitter: <a href="https://twitter.com/philiphelger">Follow @philiphelger</a>
