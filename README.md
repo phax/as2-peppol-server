@@ -4,9 +4,7 @@ An example AS2 server to easily receive AS2 messages from PEPPOL.
 This project is only meant as a Demo project for illustrative purposes, on how to
 implement a PEPPOL AS2 server. This server discards all incoming documents!
 
-This AS2 server is based on my [as2-lib](https://github.com/phax/as2-lib) library, as well as on
-[as2-peppol-servlet](https://github.com/phax/as2-peppol-servlet), 
-[peppol-sbdh](https://github.com/phax/peppol-sbdh) and [ph-ubl](https://github.com/phax/ph-ubl).
+This AS2 server is based on my **[as2-lib](https://github.com/phax/as2-lib)** library, as well as on **[as2-peppol-servlet](https://github.com/phax/as2-peppol-servlet)**, **[peppol-sbdh](https://github.com/phax/peppol-sbdh)** and **[ph-ubl](https://github.com/phax/ph-ubl)**.
 
 #Project structure
 This project is a Java 1.6+ web application and as such meant to be used in an application
@@ -25,7 +23,7 @@ The easiest way to run and debug the application is to execute class `com.helger
 After startup locate your browser to `http://localhost:8080` to check if it is running.
 
 #Test it
-Now that the AS2 server is running you may have a closer look at my [as2-peppol-client](https://github.com/phax/as2-peppol-client) project which lets you send AS2 messages to a server.
+Now that the AS2 server is running you may have a closer look at my **[as2-peppol-client](https://github.com/phax/as2-peppol-client)** project which lets you send AS2 messages to a server.
 If both client and server are configured correctly a successful message exchange should be easily possible.
 
 ---
