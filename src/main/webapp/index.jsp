@@ -18,3 +18,4 @@
 --%>
 <h1>as2-peppol-server</h1>
 <p>This site has no user interface.</p>
+<p>The AS2 endpoint is located at <a href="/as2"><code>/as2</code></a></p>

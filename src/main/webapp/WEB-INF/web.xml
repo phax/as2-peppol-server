@@ -32,15 +32,11 @@
   
   <!-- AS2 stuff -->
   <servlet>
-    <servlet-name>AS2PeppolReceiveServlet</servlet-name>
-    <servlet-class>com.helger.as2servlet.AS2PeppolReceiveServlet</servlet-class>
-    <init-param>
-      <param-name>as2-servlet-config-filename</param-name>
-      <param-value>as2-server-data/as2-server-config.xml</param-value>
-    </init-param>
+    <servlet-name>MyAS2PeppolReceiveServlet</servlet-name>
+    <servlet-class>com.helger.peppol.as2server.servlet.MyAS2PeppolReceiveServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>AS2PeppolReceiveServlet</servlet-name>
+    <servlet-name>MyAS2PeppolReceiveServlet</servlet-name>
     <url-pattern>/as2/*</url-pattern>
   </servlet-mapping>
 </web-app>
