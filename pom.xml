@@ -102,6 +102,21 @@
       <artifactId>as2-peppol-servlet</artifactId>
       <version>1.0.0</version>
     </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-ubl</artifactId>
+      <version>3.3.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.helger</groupId>
+          <artifactId>ph-ubl20</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.helger</groupId>
+          <artifactId>ph-ubl20-codelists</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>
