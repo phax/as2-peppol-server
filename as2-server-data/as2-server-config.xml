@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openas2>
+  <!-- [required] The keystore to be used -->
+  <certificates classname="com.helger.as2lib.cert.PKCS12CertificateFactory" 
+                filename="%home%/server-certs.p12"
+                password="peppol" />
+  <!-- [required] The pro-forma partnership factory -->                  
+  <partnerships classname="com.helger.as2servlet.util.AS2ServletPartnershipFactory"
+                filename="%home%/server-partnerships.xml"
+                disablebackup="true" />
+
+  <!-- [required] the processing queue -->
+  <processor classname="com.helger.as2lib.processor.DefaultMessageProcessor"
+             pendingMDN="%home%/pendingMDN"
+             pendingMDNinfo="%home%/pendinginfoMDN">
+    <!-- [optional] Store sent MDNs to a file -->
+    <module classname="com.helger.as2lib.processor.storage.MDNFileModule"
+            filename="%home%/mdn/$date.yyyy$/$date.MM$/$mdn.msg.sender.as2_id$-$mdn.msg.receiver.as2_id$-$mdn.msg.headers.message-id$"      
+            protocol="as2"
+            tempdir="%home%/temp"/>
+    <!-- [optional] Store received messages and headers to a file -->
+    <module classname="com.helger.as2lib.processor.storage.MessageFileModule"
+            filename="%home%/inbox/$msg.sender.as2_id$-$msg.receiver.as2_id$-$msg.headers.message-id$"
+            header="%home%/inbox/msgheaders/$date.yyyy$/$date.MM$/$msg.sender.as2_id$-$msg.receiver.as2_id$-$msg.headers.message-id$"    
+            protocol="as2"
+            tempdir="%home%/temp"/>
+    <!-- [required] The main receiver module that performs the message parsing.
+         This module also sends synchronous MDNs back.
+         Note: the port attribute is required but can be ignored in our case!
+     -->            
+    <module classname="com.helger.as2servlet.util.AS2ServletReceiverModule"      
+            port="10080"
+            errordir="%home%/inbox/error"
+            errorformat="$msg.sender.as2_id$, $msg.receiver.as2_id$, $msg.headers.message-id$"/>        
+    <!-- [required] Process incoming SBD documents -->
+    <module classname="com.helger.as2servlet.sbd.AS2ServletSBDModule" />      
+  </processor>
+</openas2>
