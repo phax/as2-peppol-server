@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2014 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <display-name>as2-peppol-server</display-name>
+  <description>Example web application for an AS2 PEPPOL server</description>
+  
+  <session-config>
+    <session-timeout>60</session-timeout>
+  </session-config>
+  
+  <!-- The welcome file is only required for the initial redirect -->
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- AS2 stuff -->
+  <servlet>
+    <servlet-name>AS2PeppolReceiveServlet</servlet-name>
+    <servlet-class>com.helger.as2servlet.AS2PeppolReceiveServlet</servlet-class>
+    <init-param>
+      <param-name>as2-servlet-config-filename</param-name>
+      <param-value>as2-server-data/as2-server-config.xml</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AS2PeppolReceiveServlet</servlet-name>
+    <url-pattern>/as2/*</url-pattern>
+  </servlet-mapping>
+</web-app>
