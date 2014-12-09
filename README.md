@@ -1,8 +1,8 @@
 #as2-peppol-server
 
-An example AS2 server to easily receive AS2 messages from PEPPOL.
-This project is only meant as a Demo project for illustrative purposes, on how to
-implement a PEPPOL AS2 server. This server discards all incoming documents!
+A demo AS2 server to easily receive AS2 messages from PEPPOL.
+This project is only meant as a demo project for illustrative purposes, on how to
+implement a PEPPOL AS2 server. This server discards all incoming documents and does not handle them in any way!
 
 This AS2 server is based on my **[as2-lib](https://github.com/phax/as2-lib)** library, as well as on **[as2-peppol-servlet](https://github.com/phax/as2-peppol-servlet)**, **[peppol-sbdh](https://github.com/phax/peppol-sbdh)** and **[ph-ubl](https://github.com/phax/ph-ubl)**.
 
