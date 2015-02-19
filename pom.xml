@@ -90,7 +90,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>as2-lib</artifactId>
-      <version>1.0.5</version>
+      <version>1.0.6-SNAPSHOT</version>
     </dependency>  
     <dependency>
       <groupId>com.helger</groupId>
@@ -140,7 +140,7 @@
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-webapp</artifactId>
-      <version>8.1.15.v20140411</version>
+      <version>8.1.16.v20140903</version>
       <scope>test</scope>
     </dependency>
     <dependency>
