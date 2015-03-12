@@ -95,17 +95,17 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>peppol-sbdh</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>as2-peppol-servlet</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-ubl</artifactId>
-      <version>3.3.0</version>
+      <version>3.3.1</version>
       <exclusions>
         <exclusion>
           <groupId>com.helger</groupId>
