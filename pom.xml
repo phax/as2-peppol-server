@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>1.3.3</version>
+    <version>1.3.4</version>
   </parent>
   <artifactId>as2-peppol-server</artifactId>
   <version>1.0.0-SNAPSHOT</version>
@@ -137,10 +137,11 @@
       <scope>test</scope>
     </dependency>
     
-    <!-- Must be after Jetty -->
+    <!-- Must be after Jetty; 3.0.1 for JDK 1.6 and Jetty 8 -->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version><!--$NO-MVN-MAN-VER$-->
       <scope>provided</scope>
     </dependency>
   </dependencies>
