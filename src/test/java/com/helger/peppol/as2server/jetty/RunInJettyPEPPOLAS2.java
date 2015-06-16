@@ -22,7 +22,7 @@ import javax.annotation.concurrent.Immutable;
 
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.nio.SelectChannelConnector;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
@@ -65,10 +65,9 @@ public final class RunInJettyPEPPOLAS2
     // Create main server
     final Server aServer = new Server ();
     // Create connector on Port
-    final Connector aConnector = new SelectChannelConnector ();
+    final ServerConnector aConnector = new ServerConnector (aServer);
     aConnector.setPort (nPort);
-    aConnector.setMaxIdleTime (30000);
-    aConnector.setStatsOn (true);
+    aConnector.setIdleTimeout (30000);
     aServer.setConnectors (new Connector [] { aConnector });
 
     final WebAppContext aWebAppCtx = new WebAppContext ();
@@ -87,12 +86,6 @@ public final class RunInJettyPEPPOLAS2
     // Stops the server when ctrl+c is pressed (registers to
     // Runtime.addShutdownHook)
     aServer.setStopAtShutdown (true);
-    // Send the server version in the response header?
-    aServer.setSendServerVersion (true);
-    // Send the date header in the response header?
-    aServer.setSendDateHeader (true);
-    // Allows requests (prior to shutdown) to finish gracefully
-    aServer.setGracefulShutdown (1000);
     // Starting shutdown listener thread
     if (nPort == 8080)
       new JettyMonitor ().start ();
