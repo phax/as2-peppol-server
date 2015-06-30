@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 
 import com.helger.as2lib.exception.OpenAS2Exception;
 import com.helger.as2servlet.sbd.IAS2IncomingSBDHandlerSPI;
-import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.jaxb.validation.CollectingValidationEventHandler;
 import com.helger.commons.log.InMemoryLogger;
 import com.helger.peppol.sbdh.DocumentData;

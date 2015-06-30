@@ -26,8 +26,7 @@ import java.net.Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotations.DevelopersNote;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.annotation.DevelopersNote;
 
 public final class JettyMonitor extends Thread
 {
@@ -59,11 +58,8 @@ public final class JettyMonitor extends Thread
   {
     while (true)
     {
-      Socket aSocket = null;
-      try
+      try (final Socket aSocket = m_aServerSocket.accept ())
       {
-        aSocket = m_aServerSocket.accept ();
-
         final LineNumberReader lin = new LineNumberReader (new InputStreamReader (aSocket.getInputStream ()));
         final String sKey = lin.readLine ();
         if (!m_sKey.equals (sKey))
@@ -88,11 +84,6 @@ public final class JettyMonitor extends Thread
       {
         s_aLogger.error ("Error reading from socket", e);
         break;
-      }
-      finally
-      {
-        StreamUtils.close (aSocket);
-        aSocket = null;
       }
     }
   }
