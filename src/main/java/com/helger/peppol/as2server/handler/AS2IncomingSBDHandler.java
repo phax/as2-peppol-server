@@ -30,9 +30,9 @@ import com.helger.commons.jaxb.validation.CollectingValidationEventHandler;
 import com.helger.commons.log.InMemoryLogger;
 import com.helger.peppol.sbdh.DocumentData;
 import com.helger.peppol.sbdh.read.DocumentDataReader;
-import com.helger.ubl.EUBL21DocumentType;
-import com.helger.ubl.UBL21DocumentTypes;
-import com.helger.ubl.UBL21Marshaller;
+import com.helger.ubl21.EUBL21DocumentType;
+import com.helger.ubl21.UBL21DocumentTypes;
+import com.helger.ubl21.UBL21Marshaller;
 
 @IsSPIImplementation
 public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
@@ -57,6 +57,7 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
       // Try to read the UBL document - performs implicit XSD validation
       final CollectingValidationEventHandler aEventHdl = new CollectingValidationEventHandler ();
       final Object aUBLDocument = UBL21Marshaller.readUBLDocument (aElement,
+                                                                   (ClassLoader) null,
                                                                    eDocType.getImplementationClass (),
                                                                    aEventHdl);
       if (aUBLDocument == null)
