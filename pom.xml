@@ -65,7 +65,7 @@
     <m2e.jaxrs.activation>false</m2e.jaxrs.activation>
     <m2e.jpa.activation>false</m2e.jpa.activation>
     <m2e.jsf.activation>false</m2e.jsf.activation>
-    <log4j.version>2.3</log4j.version>
+    <log4j.version>2.4</log4j.version>
     <jetty.version>9.2.13.v20150730</jetty.version>
   </properties>
 
@@ -77,14 +77,14 @@
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
-      <artifactId>as2-peppol-servlet</artifactId>
-      <version>2.1.1-SNAPSHOT</version>
-    </dependency>
+      <artifactId>as2-lib</artifactId>
+      <version>2.2.1</version>
+    </dependency>  
     <dependency>
       <groupId>com.helger</groupId>
-      <artifactId>as2-lib</artifactId>
-      <version>2.2.1-SNAPSHOT</version>
-    </dependency>  
+      <artifactId>as2-peppol-servlet</artifactId>
+      <version>2.1.1</version>
+    </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>peppol-sbdh</artifactId>
