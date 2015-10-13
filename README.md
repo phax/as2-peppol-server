@@ -5,6 +5,7 @@ This project is only meant as a demo project for illustrative purposes, on how t
 implement a PEPPOL AS2 server. This server discards all incoming documents and does not handle them in any way!
 
 This AS2 server is based on my **[as2-lib](https://github.com/phax/as2-lib)** library, as well as on **[as2-peppol-servlet](https://github.com/phax/as2-peppol-servlet)**, **[peppol-commons](https://github.com/phax/peppol-commons)** and **[ph-ubl](https://github.com/phax/ph-ubl)**.
+A client to send messages to this server is [as2-peppol-client](https://github.com/phax/as2-peppol-client).
 
 This project is licensed under the Apache 2 License.
 
