@@ -28,8 +28,8 @@ import com.helger.as2servlet.sbd.IAS2IncomingSBDHandlerSPI;
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.log.InMemoryLogger;
 import com.helger.jaxb.validation.CollectingValidationEventHandler;
-import com.helger.peppol.sbdh.DocumentData;
-import com.helger.peppol.sbdh.read.DocumentDataReader;
+import com.helger.peppol.sbdh.PeppolSBDHDocument;
+import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
 import com.helger.ubl21.EUBL21DocumentType;
 import com.helger.ubl21.UBL21DocumentTypes;
 import com.helger.ubl21.UBL21Marshaller;
@@ -43,7 +43,7 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
   {
     final InMemoryLogger aErrors = new InMemoryLogger ();
 
-    final DocumentData aDocumentData = new DocumentDataReader ().extractData (aStandardBusinessDocument);
+    final PeppolSBDHDocument aDocumentData = new PeppolSBDHDocumentReader ().extractData (aStandardBusinessDocument);
     final Element aElement = aDocumentData.getBusinessMessage ();
 
     // Try to determine the UBL document type from the namespace URI
