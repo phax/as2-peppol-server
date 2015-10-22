@@ -22,18 +22,18 @@ import java.io.IOException;
 import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 
-import com.helger.as2servlet.AS2PeppolReceiveServlet;
+import com.helger.as2servlet.AS2ReceiveServlet;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.SystemProperties;
 
 /**
- * Special version of the {@link AS2PeppolReceiveServlet} customizing the path
- * to the AS2 data file. The absolute path to the configuration file can be
- * provided using the "ap.server.config.path" system property.
+ * Special version of the {@link AS2ReceiveServlet} customizing the path to the
+ * AS2 data file. The absolute path to the configuration file can be provided
+ * using the "ap.server.config.path" system property.
  *
  * @author Philip Helger
  */
-public class MyAS2PeppolReceiveServlet extends AS2PeppolReceiveServlet
+public class MyAS2PeppolReceiveServlet extends AS2ReceiveServlet
 {
   @Override
   @Nonnull

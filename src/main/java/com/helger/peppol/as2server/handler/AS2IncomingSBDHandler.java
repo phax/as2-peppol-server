@@ -24,10 +24,10 @@ import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 import org.w3c.dom.Element;
 
 import com.helger.as2lib.exception.OpenAS2Exception;
-import com.helger.as2servlet.sbd.IAS2IncomingSBDHandlerSPI;
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.log.InMemoryLogger;
 import com.helger.jaxb.validation.CollectingValidationEventHandler;
+import com.helger.peppol.as2servlet.IAS2IncomingSBDHandlerSPI;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
 import com.helger.ubl21.EUBL21DocumentType;
@@ -56,16 +56,10 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
     {
       // Try to read the UBL document - performs implicit XSD validation
       final CollectingValidationEventHandler aEventHdl = new CollectingValidationEventHandler ();
-      final Object aUBLDocument = UBL21Marshaller.readUBLDocument (aElement,
-                                                                   (ClassLoader) null,
-                                                                   eDocType.getImplementationClass (),
-                                                                   aEventHdl);
+      final Object aUBLDocument = UBL21Marshaller.readUBLDocument (aElement, (ClassLoader) null, eDocType.getImplementationClass (), aEventHdl);
       if (aUBLDocument == null)
       {
-        aErrors.error ("Failed to read the UBL document as " +
-                       eDocType.name () +
-                       ":\n" +
-                       aEventHdl.getResourceErrors ().getAllResourceErrors ().toString ());
+        aErrors.error ("Failed to read the UBL document as " + eDocType.name () + ":\n" + aEventHdl.getResourceErrors ().getAllResourceErrors ().toString ());
       }
       else
       {
