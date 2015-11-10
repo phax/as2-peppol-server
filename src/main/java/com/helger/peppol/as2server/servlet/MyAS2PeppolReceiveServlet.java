@@ -35,6 +35,8 @@ import com.helger.commons.system.SystemProperties;
  */
 public class MyAS2PeppolReceiveServlet extends AS2ReceiveServlet
 {
+  public static final String DEFAULT_CONFIG_FILENAME = "as2-server-data/as2-server-config.xml";
+
   @Override
   @Nonnull
   protected File getConfigurationFile () throws ServletException
@@ -43,7 +45,7 @@ public class MyAS2PeppolReceiveServlet extends AS2ReceiveServlet
     if (StringHelper.hasNoText (sConfigurationFilename))
     {
       // Default value
-      sConfigurationFilename = "as2-server-data/as2-server-config.xml";
+      sConfigurationFilename = DEFAULT_CONFIG_FILENAME;
     }
 
     try
