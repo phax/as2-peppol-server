@@ -1,5 +1,9 @@
 #as2-peppol-server
 
+[![Build Status](https://travis-ci.org/phax/as2-server.svg?branch=master)](https://travis-ci.org/phax/as2-server)
+﻿
+[![Join the chat at https://gitter.im/phax/as2-server](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/phax/as2-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A demo AS2 server to easily receive AS2 messages from PEPPOL.
 This project is only meant as a demo project for illustrative purposes, on how to
 implement a PEPPOL AS2 server. This server discards all incoming documents and does not handle them in any way!
