@@ -69,6 +69,19 @@
     <jetty.version>9.2.13.v20150730</jetty.version>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>java-net</id>
+      <url>https://maven.java.net/content/repositories/public</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <dependencies>
     <dependency>
       <groupId>com.helger</groupId>
