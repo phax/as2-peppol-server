@@ -112,6 +112,13 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
+        <artifactId>ph-ubl-parent-pom</artifactId>
+        <version>4.5.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -140,7 +147,6 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-ubl21</artifactId>
-      <version>4.0.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>

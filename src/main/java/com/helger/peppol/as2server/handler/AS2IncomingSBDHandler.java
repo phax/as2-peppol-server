@@ -32,7 +32,7 @@ import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
 import com.helger.ubl21.EUBL21DocumentType;
 import com.helger.ubl21.UBL21DocumentTypes;
-import com.helger.ubl21.UBL21Marshaller;
+import com.helger.ubl21.UBL21ReaderBuilder;
 
 @IsSPIImplementation
 public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
@@ -56,10 +56,13 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
     {
       // Try to read the UBL document - performs implicit XSD validation
       final CollectingValidationEventHandler aEventHdl = new CollectingValidationEventHandler ();
-      final Object aUBLDocument = UBL21Marshaller.readUBLDocument (aElement, (ClassLoader) null, eDocType.getImplementationClass (), aEventHdl);
+      final Object aUBLDocument = UBL21ReaderBuilder.createGeneric (eDocType).setValidationEventHandler (aEventHdl).read (aElement);
       if (aUBLDocument == null)
       {
-        aErrors.error ("Failed to read the UBL document as " + eDocType.name () + ":\n" + aEventHdl.getResourceErrors ().getAllResourceErrors ().toString ());
+        aErrors.error ("Failed to read the UBL document as " +
+                       eDocType.name () +
+                       ":\n" +
+                       aEventHdl.getResourceErrors ().getAllResourceErrors ().toString ());
       }
       else
       {
