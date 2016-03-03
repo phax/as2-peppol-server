@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
   </parent>
   <artifactId>as2-peppol-server</artifactId>
   <version>1.0.0-SNAPSHOT</version>
@@ -66,7 +66,7 @@
     <m2e.jpa.activation>false</m2e.jpa.activation>
     <m2e.jsf.activation>false</m2e.jsf.activation>
     <log4j.version>2.5</log4j.version>
-    <jetty.version>9.2.14.v20151106</jetty.version>
+    <jetty.version>9.2.15.v20160210</jetty.version>
   </properties>
 
   <repositories>
@@ -101,7 +101,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>as2-lib-parent-pom</artifactId>
-        <version>2.2.5</version>
+        <version>2.2.6</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
