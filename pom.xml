@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>1.4.2</version>
+    <version>1.8.3</version>
   </parent>
   <artifactId>as2-peppol-server</artifactId>
   <version>1.0.0-SNAPSHOT</version>
@@ -66,56 +66,42 @@
     <m2e.jpa.activation>false</m2e.jpa.activation>
     <m2e.jsf.activation>false</m2e.jsf.activation>
     <log4j.version>2.5</log4j.version>
-    <jetty.version>9.2.17.v20160517</jetty.version>
   </properties>
-
-  <repositories>
-    <repository>
-      <id>java-net</id>
-      <url>https://maven.java.net/content/repositories/public</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-commons-parent-pom</artifactId>
-        <version>6.2.4</version>
+        <version>8.0.0-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-datetime-parent-pom</artifactId>
-        <version>4.2.1</version>
+        <version>5.0.0-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>as2-lib-parent-pom</artifactId>
-        <version>2.2.8</version>
+        <version>3.0.0-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>peppol-commons-parent-pom</artifactId>
-        <version>4.3.5</version>
+        <version>5.0.0-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-ubl-parent-pom</artifactId>
-        <version>4.5.0</version>
+        <version>5.0.0-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -138,7 +124,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>as2-peppol-servlet</artifactId>
-      <version>3.0.0</version>
+      <version>4.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -175,29 +161,10 @@
     </dependency>
 
     <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-webapp</artifactId>
-      <version>${jetty.version}</version>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-oton-jetty</artifactId>
+      <version>7.0.0-SNAPSHOT</version>
       <scope>test</scope>
-    </dependency>
-    <!-- Try avoid download maven-metadata.xml all the time -->
-    <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.el</artifactId>
-      <version>3.0.0</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-jsp</artifactId>
-      <version>${jetty.version}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.glassfish</groupId>
-          <artifactId>javax.el</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
   
@@ -216,16 +183,5 @@
         <targetPath>${project.build.directory}/test-classes</targetPath>
       </resource>
     </resources>
-    
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>
-    </plugins>  
   </build>
 </project>
