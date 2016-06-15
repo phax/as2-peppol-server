@@ -17,6 +17,7 @@
 package com.helger.peppol.as2server.jetty;
 
 import java.io.File;
+import java.util.Map;
 
 import javax.annotation.concurrent.Immutable;
 
@@ -32,7 +33,8 @@ import com.helger.commons.system.SystemProperties;
 import com.helger.peppol.utils.ConfigFile;
 
 /**
- * Run as2-peppol-server as a standalone web application in Jetty on port 8080.<br>
+ * Run as2-peppol-server as a standalone web application in Jetty on port 8080.
+ * <br>
  * http://localhost:8080/
  *
  * @author Philip Helger
@@ -54,11 +56,12 @@ public final class RunInJettyPEPPOLAS2
       throw new IllegalStateException ("Security Manager is set but not supported - aborting!");
 
     // Proxy configuration is simply applied by setting system properties
-    final ConfigFile aCF = new ConfigFile ("private-configProxy.properties", "configProxy.properties");
-    for (final String sKey : aCF.getAllKeys ())
+    final ConfigFile aCF = ConfigFile.create ("private-configProxy.properties", "configProxy.properties");
+    for (final Map.Entry <String, Object> aEntry : aCF.getAllEntries ().entrySet ())
     {
-      final String sValue = aCF.getString (sKey);
-      System.setProperty (sKey, sValue);
+      final String sKey = aEntry.getKey ();
+      final String sValue = String.valueOf (aEntry.getValue ());
+      SystemProperties.setPropertyValue (sKey, sValue);
       s_aLogger.info ("Setting Proxy property " + sKey + "=" + sValue);
     }
 
