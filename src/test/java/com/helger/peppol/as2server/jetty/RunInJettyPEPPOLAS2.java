@@ -16,21 +16,16 @@
  */
 package com.helger.peppol.as2server.jetty;
 
-import java.io.File;
 import java.util.Map;
 
 import javax.annotation.concurrent.Immutable;
 
-import org.eclipse.jetty.server.Connector;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.system.SystemProperties;
 import com.helger.peppol.utils.ConfigFile;
+import com.helger.photon.jetty.JettyStarter;
 
 /**
  * Run as2-peppol-server as a standalone web application in Jetty on port 8080.
@@ -43,14 +38,8 @@ import com.helger.peppol.utils.ConfigFile;
 public final class RunInJettyPEPPOLAS2
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (RunInJettyPEPPOLAS2.class);
-  private static final String RESOURCE_PREFIX = "target/webapp-classes";
 
   public static void main (final String [] args) throws Exception
-  {
-    run (8080);
-  }
-
-  public static void run (final int nPort) throws Exception
   {
     if (System.getSecurityManager () != null)
       throw new IllegalStateException ("Security Manager is set but not supported - aborting!");
@@ -65,56 +54,6 @@ public final class RunInJettyPEPPOLAS2
       s_aLogger.info ("Setting Proxy property " + sKey + "=" + sValue);
     }
 
-    // Create main server
-    final Server aServer = new Server ();
-    // Create connector on Port
-    final ServerConnector aConnector = new ServerConnector (aServer);
-    aConnector.setPort (nPort);
-    aConnector.setIdleTimeout (30000);
-    aServer.setConnectors (new Connector [] { aConnector });
-
-    final WebAppContext aWebAppCtx = new WebAppContext ();
-    aWebAppCtx.setDescriptor (RESOURCE_PREFIX + "/WEB-INF/web.xml");
-    aWebAppCtx.setResourceBase (RESOURCE_PREFIX);
-    aWebAppCtx.setContextPath ("/");
-    aWebAppCtx.setTempDirectory (new File (SystemProperties.getTmpDir () + '/' + RunInJettyPEPPOLAS2.class.getName ()));
-    aWebAppCtx.setParentLoaderPriority (true);
-    aWebAppCtx.setThrowUnavailableOnStartupException (true);
-    aWebAppCtx.setCopyWebInf (true);
-    aWebAppCtx.setCopyWebDir (true);
-    aServer.setHandler (aWebAppCtx);
-    final ServletContextHandler aCtx = aWebAppCtx;
-
-    // Setting final properties
-    // Stops the server when ctrl+c is pressed (registers to
-    // Runtime.addShutdownHook)
-    aServer.setStopAtShutdown (true);
-    // Starting shutdown listener thread
-    if (nPort == 8080)
-      new JettyMonitor ().start ();
-    try
-    {
-      // Starting the engines:
-      aServer.start ();
-    }
-    catch (final Exception ex)
-    {
-      throw new IllegalStateException ("Failed to start server!", ex);
-    }
-    finally
-    {
-      if (aCtx.isFailed ())
-      {
-        s_aLogger.error ("Failed to start server - stopping server!");
-        aServer.stop ();
-        s_aLogger.error ("Failed to start server - stopped server!");
-      }
-      else
-        if (!aServer.isFailed ())
-        {
-          // Running the server!
-          aServer.join ();
-        }
-    }
+    new JettyStarter (RunInJettyPEPPOLAS2.class).run ();
   }
 }
