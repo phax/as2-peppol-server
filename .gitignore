@@ -12,3 +12,5 @@
 hs_err_pid*
 
 target/
+/as2-dump-incoming/
+/jetty-log/
