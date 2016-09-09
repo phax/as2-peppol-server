@@ -56,13 +56,15 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
     {
       // Try to read the UBL document - performs implicit XSD validation
       final CollectingValidationEventHandler aEventHdl = new CollectingValidationEventHandler ();
-      final Object aUBLDocument = UBL21ReaderBuilder.createGeneric (eDocType).setValidationEventHandler (aEventHdl).read (aElement);
+      final Object aUBLDocument = UBL21ReaderBuilder.createGeneric (eDocType)
+                                                    .setValidationEventHandler (aEventHdl)
+                                                    .read (aElement);
       if (aUBLDocument == null)
       {
         aErrors.error ("Failed to read the UBL document as " +
                        eDocType.name () +
                        ":\n" +
-                       aEventHdl.getResourceErrors ().getAllResourceErrors ().toString ());
+                       aEventHdl.getErrorList ().getAllErrors ().toString ());
       }
       else
       {
