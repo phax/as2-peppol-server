@@ -79,7 +79,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-web-parent-pom</artifactId>
-        <version>8.7.1</version>
+        <version>8.7.2</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -107,7 +107,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>as2-peppol-servlet</artifactId>
-        <version>4.0.0</version>
+        <version>4.0.1</version>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
