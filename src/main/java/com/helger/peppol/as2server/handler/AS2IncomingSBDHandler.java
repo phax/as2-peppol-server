@@ -25,10 +25,13 @@ import org.w3c.dom.Element;
 
 import com.helger.as2lib.exception.OpenAS2Exception;
 import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.commons.collection.pair.IPair;
+import com.helger.commons.collection.pair.Pair;
 import com.helger.commons.log.InMemoryLogger;
 import com.helger.jaxb.validation.CollectingValidationEventHandler;
 import com.helger.peppol.as2servlet.IAS2IncomingSBDHandlerSPI;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
+import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReadException;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
 import com.helger.ubl21.EUBL21DocumentType;
 import com.helger.ubl21.UBL21DocumentTypes;
@@ -39,7 +42,27 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AS2IncomingSBDHandler.class);
 
-  public void handleIncomingSBD (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws Exception
+  /**
+   * Interpret the payload of the provided SBD as a UBL document and return the
+   * parsed domain object. This method is mainly provided as a "proof of concept
+   * implementation" to show how to extract data in a reasonable way.
+   *
+   * @param aStandardBusinessDocument
+   *        The source SBD. May not be <code>null</code>.
+   * @return Never <code>null</code>. A pair of document type and parsed domain
+   *         object (e.g.
+   *         {@link oasis.names.specification.ubl.schema.xsd.invoice_21.InvoiceType}
+   *         or
+   *         {@link oasis.names.specification.ubl.schema.xsd.order_21.OrderType}
+   *         etc. - depending on the type).
+   * @throws PeppolSBDHDocumentReadException
+   *         If the SBD does not comply to the PEPPOL rules.
+   * @throws OpenAS2Exception
+   *         In case the payload is not a valid UBL.
+   */
+  @Nonnull
+  public static IPair <EUBL21DocumentType, Object> extractUBLDocument (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws PeppolSBDHDocumentReadException,
+                                                                                                                                          OpenAS2Exception
   {
     final InMemoryLogger aErrors = new InMemoryLogger ();
 
@@ -70,11 +93,15 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
       {
         // Handle UBL document
         s_aLogger.info ("Successfully read UBL 2.1 " + eDocType.name () + " document. Continue from here!");
-        // TODO - main handling comes here
+        return Pair.create (eDocType, aUBLDocument);
       }
     }
 
-    if (!aErrors.isEmpty ())
-      throw new OpenAS2Exception ("Invalid UBL 2.1 document provided:\n" + aErrors.getAllMessages ());
+    throw new OpenAS2Exception ("Invalid UBL 2.1 document provided:\n" + aErrors.getAllMessages ());
+  }
+
+  public void handleIncomingSBD (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws Exception
+  {
+    // Save to file
   }
 }

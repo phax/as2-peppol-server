@@ -28,20 +28,25 @@ import com.helger.commons.system.SystemProperties;
 
 /**
  * Special version of the {@link AS2ReceiveServlet} customizing the path to the
- * AS2 data file. The absolute path to the configuration file can be provided
- * using the "peppol.ap.server.config.path" or the "ap.server.config.path"
- * system property.
+ * AS2 configuration file. The absolute path to the configuration file can be
+ * provided using the "peppol.ap.server.config.path" or the
+ * "ap.server.config.path" system property.
  *
  * @author Philip Helger
  */
 public class MyAS2PeppolReceiveServlet extends AS2ReceiveServlet
 {
+  /** Default filename to use if no system properties are present */
   public static final String DEFAULT_CONFIG_FILENAME = "as2-server-data/as2-server-config.xml";
+
+  public MyAS2PeppolReceiveServlet ()
+  {}
 
   @Override
   @Nonnull
   protected File getConfigurationFile () throws ServletException
   {
+    // Get the configuration filename from System properties
     String sConfigurationFilename = SystemProperties.getPropertyValue ("peppol.ap.server.config.path");
     if (StringHelper.hasNoText (sConfigurationFilename))
     {
