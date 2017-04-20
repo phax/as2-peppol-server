@@ -48,6 +48,7 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.lang.GenericReflection;
+import com.helger.commons.system.EOperatingSystem;
 
 /**
  * Generic directory watching service using the default JDK {@link WatchService}
@@ -164,7 +165,8 @@ public class WatchDir implements Closeable
     m_bRecursive = bRecursive;
 
     boolean bRegisterRecursiveManually = bRecursive;
-    if (bRecursive)
+    // Windows only!
+    if (bRecursive && EOperatingSystem.WINDOWS.isCurrentOS ())
     {
       // Reflection, as this is for Windows/Oracle JDK only!
       // Shortcut for com.sun.nio.file.ExtendedWatchEventModifier.FILE_TREE
