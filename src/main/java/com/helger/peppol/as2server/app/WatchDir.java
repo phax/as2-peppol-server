@@ -112,11 +112,13 @@ public class WatchDir implements Closeable
                        aDir +
                        (m_bRecursive && !m_bRegisterRecursiveManually ? " (recursively)" : ""));
 
-    final WatchKey aKey = aDir.register (m_aWatcher,
-                                         new WatchEvent.Kind <?> [] { StandardWatchEventKinds.ENTRY_CREATE,
-                                                                      StandardWatchEventKinds.ENTRY_DELETE,
-                                                                      StandardWatchEventKinds.ENTRY_MODIFY },
-                                         m_aModifiers);
+    final WatchEvent.Kind <?> [] aKinds = new WatchEvent.Kind <?> [] { StandardWatchEventKinds.ENTRY_CREATE,
+                                                                       StandardWatchEventKinds.ENTRY_DELETE,
+                                                                       StandardWatchEventKinds.ENTRY_MODIFY };
+
+    // throws exception when using with modifiers even if null
+    final WatchKey aKey = m_aModifiers != null ? aDir.register (m_aWatcher, aKinds, m_aModifiers)
+                                               : aDir.register (m_aWatcher, aKinds);
     m_aKeys.put (aKey, aDir);
   }
 
