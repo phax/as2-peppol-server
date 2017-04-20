@@ -1,6 +1,6 @@
 <%--
 
-    Copyright (C) 2014-2015 Philip Helger (www.helger.com)
+    Copyright (C) 2014-2017 Philip Helger (www.helger.com)
     philip[at]helger[dot]com
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 
---%>
-<h1>as2-peppol-server</h1>
+--%><h1>as2-peppol-server</h1>
 <p>This site has no user interface.</p>
 <p>The AS2 endpoint is located at <a href="<%=request.getContextPath () %>/as2"><code>/as2</code></a></p>

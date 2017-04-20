@@ -195,5 +195,22 @@
         <targetPath>${project.build.directory}/test-classes</targetPath>
       </resource>
     </resources>
+    
+    <plugins>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/LICENSE</exclude>
+            <exclude>**/LICENSE.txt</exclude>
+            <exclude>**/NOTICE</exclude>
+            <exclude>**/*.jsp</exclude>
+            <exclude>as2-server-data/**</exclude>
+            <exclude>jetty-log/**</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 </project>
