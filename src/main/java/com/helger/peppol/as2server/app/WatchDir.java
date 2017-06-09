@@ -193,9 +193,12 @@ public class WatchDir implements Closeable
       _registerDir (m_aStartDir);
   }
 
+  /**
+   * @return The modifiable callback list. Never <code>null</code>.
+   */
   @Nonnull
   @ReturnsMutableObject ("design")
-  public CallbackList <IWatchDirCallback> getCallbacks ()
+  public CallbackList <IWatchDirCallback> callbacks ()
   {
     return m_aCallbacks;
   }
@@ -397,7 +400,7 @@ public class WatchDir implements Closeable
                                                      @Nonnull final IWatchDirCallback aCallback) throws IOException
   {
     final WatchDir ret = new WatchDir (aDir, bRecursive);
-    ret.getCallbacks ().addCallback (aCallback);
+    ret.callbacks ().addCallback (aCallback);
     new Thread ( () -> ret.processEvents (), "WatchDir-" + ret.getStartDirectory ()).start ();
     return ret;
   }

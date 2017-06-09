@@ -48,7 +48,7 @@ public final class WatchDirTest
 
     try (WatchDir d = new WatchDir (aDir, bRecursive))
     {
-      d.getCallbacks ().addCallback (aCB);
+      d.callbacks ().addCallback (aCB);
       new Thread ( () -> d.processEvents (), "WatchDir-" + d.getStartDirectory ()).start ();
       ThreadHelper.sleep (10, TimeUnit.SECONDS);
     }
