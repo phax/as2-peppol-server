@@ -26,6 +26,8 @@ import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
+import com.helger.peppol.sml.ESML;
+import com.helger.peppol.sml.ISMLInfo;
 import com.helger.settings.ISettings;
 import com.helger.settings.exchange.configfile.ConfigFile;
 import com.helger.settings.exchange.configfile.ConfigFileBuilder;
@@ -127,11 +129,55 @@ public final class AppConfiguration extends AbstractGlobalSingleton
   }
 
   /**
-   * @return <code>true</code> if the start page should show a dynamic table
-   * @since 5.0.2
+   * @return The SML to use for the SMP client lookup. Never <code>null</code>.
+   *         If an invalid value is specified, the production SML is used.
    */
-  public static boolean isStartPageDynamicTable ()
+  @Nonnull
+  public static ISMLInfo getSMLToUse ()
   {
-    return s_aConfigFile.getAsBoolean ("webapp.startpage.dynamictable", false);
+    final String sSMLID = s_aConfigFile.getAsString ("sml.id");
+    return ESML.getFromIDOrDefault (sSMLID, ESML.DIGIT_PRODUCTION);
+  }
+
+  /**
+   * @return The absolute folder/directory path from which sending should occur.
+   *         May be <code>null</code> in which case startup should fail.
+   */
+  @Nullable
+  public static String getFolderForSending ()
+  {
+    return s_aConfigFile.getAsString ("folder.sending");
+  }
+
+  /**
+   * @return The absolute folder/directory path in which failed sending files
+   *         are moved. May be <code>null</code> in which case startup should
+   *         fail.
+   */
+  @Nullable
+  public static String getFolderForSendingErrors ()
+  {
+    return s_aConfigFile.getAsString ("folder.sending.error");
+  }
+
+  /**
+   * @return The absolute folder/directory path in which received files are
+   *         stored. May be <code>null</code> in which case startup should fail.
+   */
+  @Nullable
+  public static String getFolderForReceiving ()
+  {
+    return s_aConfigFile.getAsString ("folder.receiving");
+  }
+
+  /**
+   * @return The absolute folder/directory path in which failed received files
+   *         are stored. May be <code>null</code> in which case startup should
+   *         fail.
+   */
+  @Nullable
+  public static String getFolderForReceivingErrors ()
+  {
+    return s_aConfigFile.getAsString ("folder.receiving.error");
   }
 }
