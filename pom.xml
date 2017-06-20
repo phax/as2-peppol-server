@@ -148,6 +148,10 @@
       <groupId>com.helger</groupId>
       <artifactId>peppol-smp-client</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-oton-core</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>

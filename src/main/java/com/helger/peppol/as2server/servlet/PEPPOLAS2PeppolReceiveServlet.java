@@ -18,6 +18,7 @@ package com.helger.peppol.as2server.servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 
 import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
@@ -34,17 +35,16 @@ import com.helger.commons.system.SystemProperties;
  *
  * @author Philip Helger
  */
-public class MyAS2PeppolReceiveServlet extends AS2ReceiveServlet
+public class PEPPOLAS2PeppolReceiveServlet extends AS2ReceiveServlet
 {
   /** Default filename to use if no system properties are present */
   public static final String DEFAULT_CONFIG_FILENAME = "as2-server-data/as2-server-config.xml";
 
-  public MyAS2PeppolReceiveServlet ()
+  public PEPPOLAS2PeppolReceiveServlet ()
   {}
 
-  @Override
   @Nonnull
-  protected File getConfigurationFile () throws ServletException
+  public static File getStaticConfigurationFile ()
   {
     // Get the configuration filename from System properties
     String sConfigurationFilename = SystemProperties.getPropertyValue ("peppol.ap.server.config.path");
@@ -65,7 +65,14 @@ public class MyAS2PeppolReceiveServlet extends AS2ReceiveServlet
     }
     catch (final IOException ex)
     {
-      throw new ServletException ("Failed to get the canonical file from '" + sConfigurationFilename + "'");
+      throw new UncheckedIOException ("Failed to get the canonical file from '" + sConfigurationFilename + "'", ex);
     }
+  }
+
+  @Override
+  @Nonnull
+  protected File getConfigurationFile () throws ServletException
+  {
+    return getStaticConfigurationFile ();
   }
 }
