@@ -113,6 +113,7 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
       SBDHWriter.standardBusinessDocument ().write (aStandardBusinessDocument, aFile);
     else
       XMLWriter.writeToStream (aElement, FileHelper.getOutputStream (aFile, EAppend.TRUNCATE));
+    s_aLogger.error ("Wrote received erroneous SBDH to " + aFile.getAbsolutePath ());
 
     throw new OpenAS2Exception ("Invalid UBL 2.1 document provided:\n" + aErrors.getAllMessages ());
   }
@@ -130,5 +131,7 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
       SBDHWriter.standardBusinessDocument ().write (aStandardBusinessDocument, aFile);
     else
       new UBL21WriterBuilder <> (aPair.getFirst ()).write (aPair.getSecond (), aFile);
+
+    s_aLogger.error ("Wrote received good SBDH to " + aFile.getAbsolutePath ());
   }
 }
