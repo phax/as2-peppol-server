@@ -39,6 +39,7 @@ import com.helger.peppol.as2servlet.IAS2IncomingSBDHandlerSPI;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReadException;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
+import com.helger.sbdh.builder.SBDHWriter;
 import com.helger.ubl21.EUBL21DocumentType;
 import com.helger.ubl21.UBL21DocumentTypes;
 import com.helger.ubl21.UBL21ReaderBuilder;
@@ -105,10 +106,13 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
       }
     }
 
-    // Save XML to error folder
+    // Save SBDH to error folder
     final File aFile = new File (AppSettings.getFolderForReceivingErrors (),
                                  GlobalIDFactory.getNewPersistentStringID () + ".xml");
-    XMLWriter.writeToStream (aElement, FileHelper.getOutputStream (aFile, EAppend.TRUNCATE));
+    if (true)
+      SBDHWriter.standardBusinessDocument ().write (aStandardBusinessDocument, aFile);
+    else
+      XMLWriter.writeToStream (aElement, FileHelper.getOutputStream (aFile, EAppend.TRUNCATE));
 
     throw new OpenAS2Exception ("Invalid UBL 2.1 document provided:\n" + aErrors.getAllMessages ());
   }
@@ -116,11 +120,15 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
   public void handleIncomingSBD (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws Exception
   {
     // Grab data and parse (for XSD validation)
+    // Throws Exception on error
     final IPair <EUBL21DocumentType, Object> aPair = extractUBLDocument (aStandardBusinessDocument);
 
     // Write UBL to receiving folder
     final File aFile = new File (AppSettings.getFolderForReceiving (),
                                  GlobalIDFactory.getNewPersistentStringID () + ".xml");
-    new UBL21WriterBuilder <> (aPair.getFirst ()).write (aPair.getSecond (), aFile);
+    if (true)
+      SBDHWriter.standardBusinessDocument ().write (aStandardBusinessDocument, aFile);
+    else
+      new UBL21WriterBuilder <> (aPair.getFirst ()).write (aPair.getSecond (), aFile);
   }
 }
