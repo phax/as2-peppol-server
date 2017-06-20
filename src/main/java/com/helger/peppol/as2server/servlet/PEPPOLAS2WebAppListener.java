@@ -14,6 +14,7 @@ package com.helger.peppol.as2server.servlet;
 import java.io.File;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.servlet.ServletContext;
 
 import org.slf4j.Logger;
@@ -77,22 +78,32 @@ public final class PEPPOLAS2WebAppListener extends AbstractWebAppListenerMultiAp
     return AppSettings.isCheckFileAccess ();
   }
 
-  private void _ensureDirectoryExisting (@Nonnull final String sPath)
+  private static void _ensureDirectoryExisting (@Nonnull @Nonempty final String sWhat, @Nullable final File aPath)
   {
-    final File aFile = new File (sPath);
-    if (!aFile.exists ())
+    if (aPath == null)
+      throw new IllegalStateException ("The special PEPPOL AS2 folder for " + sWhat + " is unspecified!");
+    if (!aPath.exists ())
     {
-      FileOperations.createDirRecursive (aFile);
-      s_aLogger.info ("Created special PEPPOL AS2 folder '" + sPath + "'");
+      FileOperations.createDirRecursive (aPath);
+      s_aLogger.info ("Created special PEPPOL AS2 folder '" + aPath.getAbsolutePath () + "'");
+    }
+    else
+    {
+      if (s_aLogger.isDebugEnabled ())
+        s_aLogger.debug ("Special PEPPOL AS2 folder '" +
+                         aPath.getAbsolutePath () +
+                         "' for " +
+                         sWhat +
+                         " already exists!");
     }
   }
 
-  private void _checkSettings ()
+  private static void _checkSettings ()
   {
-    _ensureDirectoryExisting (AppSettings.getFolderForSending ());
-    _ensureDirectoryExisting (AppSettings.getFolderForSendingErrors ());
-    _ensureDirectoryExisting (AppSettings.getFolderForReceiving ());
-    _ensureDirectoryExisting (AppSettings.getFolderForReceivingErrors ());
+    _ensureDirectoryExisting ("sending", AppSettings.getFolderForSending ());
+    _ensureDirectoryExisting ("sending errors", AppSettings.getFolderForSendingErrors ());
+    _ensureDirectoryExisting ("receiving", AppSettings.getFolderForReceiving ());
+    _ensureDirectoryExisting ("receiving errors", AppSettings.getFolderForReceivingErrors ());
   }
 
   @Override

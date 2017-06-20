@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.as2server.handler;
 
+import java.io.File;
+
 import javax.annotation.Nonnull;
 
 import org.slf4j.Logger;
@@ -27,8 +29,12 @@ import com.helger.as2lib.exception.OpenAS2Exception;
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.collection.pair.IPair;
 import com.helger.commons.collection.pair.Pair;
+import com.helger.commons.id.factory.GlobalIDFactory;
+import com.helger.commons.io.EAppend;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.log.InMemoryLogger;
 import com.helger.jaxb.validation.CollectingValidationEventHandler;
+import com.helger.peppol.as2server.app.AppSettings;
 import com.helger.peppol.as2servlet.IAS2IncomingSBDHandlerSPI;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReadException;
@@ -36,6 +42,8 @@ import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
 import com.helger.ubl21.EUBL21DocumentType;
 import com.helger.ubl21.UBL21DocumentTypes;
 import com.helger.ubl21.UBL21ReaderBuilder;
+import com.helger.ubl21.UBL21WriterBuilder;
+import com.helger.xml.serialize.write.XMLWriter;
 
 @IsSPIImplementation
 public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
@@ -97,11 +105,22 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
       }
     }
 
+    // Save XML to error folder
+    final File aFile = new File (AppSettings.getFolderForReceivingErrors (),
+                                 GlobalIDFactory.getNewPersistentStringID () + ".xml");
+    XMLWriter.writeToStream (aElement, FileHelper.getOutputStream (aFile, EAppend.TRUNCATE));
+
     throw new OpenAS2Exception ("Invalid UBL 2.1 document provided:\n" + aErrors.getAllMessages ());
   }
 
   public void handleIncomingSBD (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws Exception
   {
-    // Save to file
+    // Grab data and parse (for XSD validation)
+    final IPair <EUBL21DocumentType, Object> aPair = extractUBLDocument (aStandardBusinessDocument);
+
+    // Write UBL to receiving folder
+    final File aFile = new File (AppSettings.getFolderForReceiving (),
+                                 GlobalIDFactory.getNewPersistentStringID () + ".xml");
+    new UBL21WriterBuilder <> (aPair.getFirst ()).write (aPair.getSecond (), aFile);
   }
 }

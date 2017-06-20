@@ -16,6 +16,10 @@
  */
 package com.helger.peppol.as2server.app;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -26,6 +30,7 @@ import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
+import com.helger.commons.string.StringHelper;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.settings.ISettings;
@@ -139,14 +144,29 @@ public final class AppSettings extends AbstractGlobalSingleton
     return ESML.getFromIDOrDefault (sSMLID, ESML.DIGIT_PRODUCTION);
   }
 
+  @Nullable
+  private static File _getAsFile (@Nullable final String sPath)
+  {
+    if (StringHelper.hasNoText (sPath))
+      return null;
+    try
+    {
+      return new File (sPath).getAbsoluteFile ().getCanonicalFile ();
+    }
+    catch (final IOException ex)
+    {
+      throw new UncheckedIOException ("Error in getCanonicalFile", ex);
+    }
+  }
+
   /**
    * @return The absolute folder/directory path from which sending should occur.
    *         May be <code>null</code> in which case startup should fail.
    */
   @Nullable
-  public static String getFolderForSending ()
+  public static File getFolderForSending ()
   {
-    return s_aConfigFile.getAsString ("folder.sending");
+    return _getAsFile (s_aConfigFile.getAsString ("folder.sending"));
   }
 
   /**
@@ -155,9 +175,9 @@ public final class AppSettings extends AbstractGlobalSingleton
    *         fail.
    */
   @Nullable
-  public static String getFolderForSendingErrors ()
+  public static File getFolderForSendingErrors ()
   {
-    return s_aConfigFile.getAsString ("folder.sending.error");
+    return _getAsFile (s_aConfigFile.getAsString ("folder.sending.error"));
   }
 
   /**
@@ -165,9 +185,9 @@ public final class AppSettings extends AbstractGlobalSingleton
    *         stored. May be <code>null</code> in which case startup should fail.
    */
   @Nullable
-  public static String getFolderForReceiving ()
+  public static File getFolderForReceiving ()
   {
-    return s_aConfigFile.getAsString ("folder.receiving");
+    return _getAsFile (s_aConfigFile.getAsString ("folder.receiving"));
   }
 
   /**
@@ -176,8 +196,8 @@ public final class AppSettings extends AbstractGlobalSingleton
    *         fail.
    */
   @Nullable
-  public static String getFolderForReceivingErrors ()
+  public static File getFolderForReceivingErrors ()
   {
-    return s_aConfigFile.getAsString ("folder.receiving.error");
+    return _getAsFile (s_aConfigFile.getAsString ("folder.receiving.error"));
   }
 }
