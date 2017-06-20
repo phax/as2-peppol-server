@@ -1,13 +1,18 @@
 /**
- * Copyright (C) 2012-2017 winenet GmbH - www.winenet.at
- * All Rights Reserved
+ * Copyright (C) 2014-2017 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
  *
- * This file is part of the winenet-Kellerbuch software.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Proprietary and confidential.
+ *         http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unauthorized copying of this file, via any medium is
- * strictly prohibited.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.helger.peppol.as2server.servlet;
 
@@ -29,6 +34,7 @@ import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.vendor.VendorInfo;
 import com.helger.html.hc.config.HCSettings;
 import com.helger.peppol.as2server.app.AppSettings;
+import com.helger.peppol.as2server.app.WebAppSettings;
 import com.helger.photon.basic.app.PhotonPathMapper;
 import com.helger.photon.basic.app.request.RequestParameterHandlerURLPathNamed;
 import com.helger.photon.basic.app.request.RequestParameterManager;
@@ -57,25 +63,25 @@ public final class PEPPOLAS2WebAppListener extends AbstractWebAppListenerMultiAp
   @Override
   protected String getInitParameterDebug (@Nonnull final ServletContext aSC)
   {
-    return AppSettings.getGlobalDebug ();
+    return WebAppSettings.getGlobalDebug ();
   }
 
   @Override
   protected String getInitParameterProduction (@Nonnull final ServletContext aSC)
   {
-    return AppSettings.getGlobalProduction ();
+    return WebAppSettings.getGlobalProduction ();
   }
 
   @Override
   protected String getDataPath (@Nonnull final ServletContext aSC)
   {
-    return AppSettings.getDataPath ();
+    return WebAppSettings.getDataPath ();
   }
 
   @Override
   protected boolean shouldCheckFileAccess (@Nonnull final ServletContext aSC)
   {
-    return AppSettings.isCheckFileAccess ();
+    return WebAppSettings.isCheckFileAccess ();
   }
 
   private static void _ensureDirectoryExisting (@Nonnull @Nonempty final String sWhat, @Nullable final File aPath)

@@ -31,11 +31,11 @@
   
   <!-- AS2 stuff -->
   <servlet>
-    <servlet-name>PEPPOLAS2PeppolReceiveServlet</servlet-name>
-    <servlet-class>com.helger.peppol.as2server.servlet.PEPPOLAS2PeppolReceiveServlet</servlet-class>
+    <servlet-name>PEPPOLAS2ReceiveServlet</servlet-name>
+    <servlet-class>com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PEPPOLAS2PeppolReceiveServlet</servlet-name>
+    <servlet-name>PEPPOLAS2ReceiveServlet</servlet-name>
     <url-pattern>/as2/*</url-pattern>
   </servlet-mapping>
 

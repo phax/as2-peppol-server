@@ -27,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
 import com.helger.commons.string.StringHelper;
@@ -61,15 +60,15 @@ public final class AppSettings extends AbstractGlobalSingleton
 
   static
   {
-    final ConfigFileBuilder aCFB = new ConfigFileBuilder ().addPathFromSystemProperty ("peppol.ap.webapp.properties.path")
-                                                           .addPathFromSystemProperty ("ap.webapp.properties.path")
-                                                           .addPath ("private-webapp.properties")
-                                                           .addPath ("webapp.properties");
+    final ConfigFileBuilder aCFB = new ConfigFileBuilder ().addPathFromSystemProperty ("peppol.as2-server.properties.path")
+                                                           .addPathFromSystemProperty ("as2-server.properties.path")
+                                                           .addPath ("private-as2-server.properties")
+                                                           .addPath ("as2-server.properties");
 
     s_aConfigFile = aCFB.build ();
     if (!s_aConfigFile.isRead ())
-      throw new IllegalStateException ("Failed to read PEPPOL AP web app properties from " + aCFB.getAllPaths ());
-    s_aLogger.info ("Read PEPPOL AP web app properties from " + s_aConfigFile.getReadResource ().getPath ());
+      throw new IllegalStateException ("Failed to read PEPPOL AP AS2 server properties from " + aCFB.getAllPaths ());
+    s_aLogger.info ("Read PEPPOL AP AS2 server properties from " + s_aConfigFile.getReadResource ().getPath ());
   }
 
   @Deprecated
@@ -87,50 +86,6 @@ public final class AppSettings extends AbstractGlobalSingleton
   public static IReadableResource getSettingsResource ()
   {
     return s_aConfigFile.getReadResource ();
-  }
-
-  /**
-   * @return <code>true</code> if global debug is enabled. Should be turned off
-   *         in production systems!
-   */
-  @Nullable
-  public static String getGlobalDebug ()
-  {
-    return s_aConfigFile.getAsString ("global.debug");
-  }
-
-  /**
-   * @return <code>true</code> if global production mode is enabled. Should only
-   *         be turned on in production systems!
-   */
-  @Nullable
-  public static String getGlobalProduction ()
-  {
-    return s_aConfigFile.getAsString ("global.production");
-  }
-
-  /**
-   * @return The path where the application stores its data. Should be an
-   *         absolute path.
-   */
-  @Nullable
-  public static String getDataPath ()
-  {
-    return s_aConfigFile.getAsString ("webapp.datapath");
-  }
-
-  public static boolean isCheckFileAccess ()
-  {
-    return s_aConfigFile.getAsBoolean ("webapp.checkfileaccess", true);
-  }
-
-  /**
-   * @return <code>true</code> if this is a public testable version,
-   *         <code>false</code> if not.
-   */
-  public static boolean isTestVersion ()
-  {
-    return s_aConfigFile.getAsBoolean ("webapp.testversion", GlobalDebug.isDebugMode ());
   }
 
   /**

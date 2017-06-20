@@ -35,12 +35,15 @@ import com.helger.commons.system.SystemProperties;
  *
  * @author Philip Helger
  */
-public class PEPPOLAS2PeppolReceiveServlet extends AS2ReceiveServlet
+public class PEPPOLAS2ReceiveServlet extends AS2ReceiveServlet
 {
+  public static final String SERVLET_DEFAULT_NAME = "as2";
+  public static final String SERVLET_DEFAULT_PATH = '/' + SERVLET_DEFAULT_NAME;
+
   /** Default filename to use if no system properties are present */
   public static final String DEFAULT_CONFIG_FILENAME = "as2-server-data/as2-server-config.xml";
 
-  public PEPPOLAS2PeppolReceiveServlet ()
+  public PEPPOLAS2ReceiveServlet ()
   {}
 
   @Nonnull
