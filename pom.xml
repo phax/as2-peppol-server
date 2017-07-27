@@ -99,15 +99,22 @@
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
-        <artifactId>ph-bdve-parent-pom</artifactId>
-        <version>3.1.4</version>
+        <artifactId>ph-ubl-parent-pom</artifactId>
+        <version>5.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
-        <artifactId>ph-ubl-parent-pom</artifactId>
-        <version>5.1.0</version>
+        <artifactId>ph-schematron-parent-pom</artifactId>
+        <version>4.3.3</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
+        <artifactId>ph-bdve-parent-pom</artifactId>
+        <version>3.1.4</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
