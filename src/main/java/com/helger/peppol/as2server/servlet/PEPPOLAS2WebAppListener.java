@@ -27,25 +27,25 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.vendor.VendorInfo;
 import com.helger.html.hc.config.HCSettings;
 import com.helger.peppol.as2server.app.AppSettings;
 import com.helger.peppol.as2server.app.WebAppSettings;
+import com.helger.photon.basic.app.CApplicationID;
 import com.helger.photon.basic.app.PhotonPathMapper;
 import com.helger.photon.basic.app.request.RequestParameterHandlerURLPathNamed;
 import com.helger.photon.basic.app.request.RequestParameterManager;
 import com.helger.photon.core.ajax.servlet.SecureApplicationAjaxServlet;
 import com.helger.photon.core.api.servlet.SecureApplicationAPIServlet;
-import com.helger.photon.core.app.CApplication;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.app.init.IApplicationInitializer;
-import com.helger.photon.core.requesttrack.RequestTracker;
 import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
 import com.helger.photon.core.servlet.AbstractWebAppListenerMultiApp;
+import com.helger.photon.xservlet.requesttrack.RequestTracker;
 
 /**
  * Callbacks for the application server
@@ -118,7 +118,7 @@ public final class PEPPOLAS2WebAppListener extends AbstractWebAppListenerMultiAp
   protected ICommonsMap <String, IApplicationInitializer <LayoutExecutionContext>> getAllInitializers ()
   {
     final ICommonsMap <String, IApplicationInitializer <LayoutExecutionContext>> ret = new CommonsHashMap <> ();
-    ret.put (CApplication.APP_ID_SECURE, new PEPPOLAS2Initializer ());
+    ret.put (CApplicationID.APP_ID_SECURE, new PEPPOLAS2Initializer ());
     return ret;
   }
 
@@ -162,13 +162,13 @@ public final class PEPPOLAS2WebAppListener extends AbstractWebAppListenerMultiAp
     }
 
     PhotonPathMapper.removeAllPathMappings ();
-    PhotonPathMapper.setApplicationServletPathMapping (CApplication.APP_ID_SECURE,
+    PhotonPathMapper.setApplicationServletPathMapping (CApplicationID.APP_ID_SECURE,
                                                        AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH);
-    PhotonPathMapper.setAjaxServletPathMapping (CApplication.APP_ID_SECURE,
+    PhotonPathMapper.setAjaxServletPathMapping (CApplicationID.APP_ID_SECURE,
                                                 SecureApplicationAjaxServlet.SERVLET_DEFAULT_PATH);
-    PhotonPathMapper.setAPIServletPathMapping (CApplication.APP_ID_SECURE,
+    PhotonPathMapper.setAPIServletPathMapping (CApplicationID.APP_ID_SECURE,
                                                SecureApplicationAPIServlet.SERVLET_DEFAULT_PATH);
-    PhotonPathMapper.setDefaultApplicationID (CApplication.APP_ID_SECURE);
+    PhotonPathMapper.setDefaultApplicationID (CApplicationID.APP_ID_SECURE);
   }
 
   @Override
