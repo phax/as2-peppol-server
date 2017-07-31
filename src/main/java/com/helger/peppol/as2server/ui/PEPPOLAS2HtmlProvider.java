@@ -28,7 +28,7 @@ import com.helger.peppol.as2server.app.WebAppSettings;
 import com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveServlet;
 import com.helger.photon.core.app.context.ISimpleWebExecutionContext;
 import com.helger.photon.core.app.html.AbstractHTMLProvider;
-import com.helger.photon.core.app.redirect.ForcedRedirectException;
+import com.helger.photon.xservlet.forcedredirect.ForcedRedirectException;
 
 public final class PEPPOLAS2HtmlProvider extends AbstractHTMLProvider
 {

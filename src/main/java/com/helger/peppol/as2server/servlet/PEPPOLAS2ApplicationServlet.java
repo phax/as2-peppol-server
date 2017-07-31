@@ -26,21 +26,9 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 public final class PEPPOLAS2ApplicationServlet extends AbstractSecureApplicationServlet
 {
   @Override
-  protected void onRequestBegin (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope)
-  {
-    super.onRequestBegin (aRequestScope);
-  }
-
-  @Override
   @Nonnull
   protected IHTMLProvider createHTMLProvider (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope)
   {
     return new PEPPOLAS2HtmlProvider ();
-  }
-
-  @Override
-  protected void onRequestEnd (final boolean bExceptionOccurred)
-  {
-    super.onRequestEnd (bExceptionOccurred);
   }
 }
