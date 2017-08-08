@@ -45,7 +45,7 @@ import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.app.init.IApplicationInitializer;
 import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
 import com.helger.photon.core.servlet.AbstractWebAppListenerMultiApp;
-import com.helger.photon.xservlet.requesttrack.RequestTracker;
+import com.helger.xservlet.requesttrack.RequestTracker;
 
 /**
  * Callbacks for the application server
