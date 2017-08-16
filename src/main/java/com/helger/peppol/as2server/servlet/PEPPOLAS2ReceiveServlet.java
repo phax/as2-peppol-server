@@ -16,16 +16,9 @@
  */
 package com.helger.peppol.as2server.servlet;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.UncheckedIOException;
-
-import javax.annotation.Nonnull;
-import javax.servlet.ServletException;
-
 import com.helger.as2servlet.AS2ReceiveServlet;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.system.SystemProperties;
+import com.helger.http.EHttpMethod;
+import com.helger.xservlet.AbstractXServlet;
 
 /**
  * Special version of the {@link AS2ReceiveServlet} customizing the path to the
@@ -35,47 +28,13 @@ import com.helger.commons.system.SystemProperties;
  *
  * @author Philip Helger
  */
-public class PEPPOLAS2ReceiveServlet extends AS2ReceiveServlet
+public class PEPPOLAS2ReceiveServlet extends AbstractXServlet
 {
   public static final String SERVLET_DEFAULT_NAME = "as2";
   public static final String SERVLET_DEFAULT_PATH = '/' + SERVLET_DEFAULT_NAME;
 
-  /** Default filename to use if no system properties are present */
-  public static final String DEFAULT_CONFIG_FILENAME = "as2-server-data/as2-server-config.xml";
-
   public PEPPOLAS2ReceiveServlet ()
-  {}
-
-  @Nonnull
-  public static File getStaticConfigurationFile ()
   {
-    // Get the configuration filename from System properties
-    String sConfigurationFilename = SystemProperties.getPropertyValue ("peppol.ap.server.config.path");
-    if (StringHelper.hasNoText (sConfigurationFilename))
-    {
-      sConfigurationFilename = SystemProperties.getPropertyValue ("ap.server.config.path");
-      if (StringHelper.hasNoText (sConfigurationFilename))
-      {
-        // Default value
-        sConfigurationFilename = DEFAULT_CONFIG_FILENAME;
-      }
-    }
-
-    try
-    {
-      final File aFile = new File (sConfigurationFilename).getCanonicalFile ();
-      return aFile;
-    }
-    catch (final IOException ex)
-    {
-      throw new UncheckedIOException ("Failed to get the canonical file from '" + sConfigurationFilename + "'", ex);
-    }
-  }
-
-  @Override
-  @Nonnull
-  protected File getConfigurationFile () throws ServletException
-  {
-    return getStaticConfigurationFile ();
+    handlerRegistry ().registerHandler (EHttpMethod.POST, new PEPPOLAS2ReceiveXServletHandler ());
   }
 }
