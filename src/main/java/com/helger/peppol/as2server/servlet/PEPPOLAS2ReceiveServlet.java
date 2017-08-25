@@ -28,7 +28,7 @@ import com.helger.xservlet.AbstractXServlet;
  *
  * @author Philip Helger
  */
-public class PEPPOLAS2ReceiveServlet extends AbstractXServlet
+public final class PEPPOLAS2ReceiveServlet extends AbstractXServlet
 {
   public static final String SERVLET_DEFAULT_NAME = "as2";
   public static final String SERVLET_DEFAULT_PATH = '/' + SERVLET_DEFAULT_NAME;
