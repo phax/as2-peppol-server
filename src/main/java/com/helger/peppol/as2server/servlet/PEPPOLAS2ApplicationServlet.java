@@ -16,19 +16,23 @@
  */
 package com.helger.peppol.as2server.servlet;
 
-import javax.annotation.Nonnull;
-
 import com.helger.peppol.as2server.ui.PEPPOLAS2HtmlProvider;
 import com.helger.photon.core.app.html.IHTMLProvider;
+import com.helger.photon.core.servlet.AbstractApplicationXServletHandler;
 import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 public final class PEPPOLAS2ApplicationServlet extends AbstractSecureApplicationServlet
 {
-  @Override
-  @Nonnull
-  protected IHTMLProvider createHTMLProvider (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope)
+  public PEPPOLAS2ApplicationServlet ()
   {
-    return new PEPPOLAS2HtmlProvider ();
+    super (new AbstractApplicationXServletHandler ()
+    {
+      @Override
+      protected IHTMLProvider createHTMLProvider (final IRequestWebScopeWithoutResponse aRequestScope)
+      {
+        return new PEPPOLAS2HtmlProvider ();
+      }
+    });
   }
 }
