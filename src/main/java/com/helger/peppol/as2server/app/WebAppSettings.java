@@ -114,7 +114,7 @@ public final class WebAppSettings extends AbstractGlobalSingleton
 
   public static boolean isCheckFileAccess ()
   {
-    return s_aConfigFile.getAsBoolean ("webapp.checkfileaccess", true);
+    return s_aConfigFile.getAsBoolean ("webapp.checkfileaccess", false);
   }
 
   /**
