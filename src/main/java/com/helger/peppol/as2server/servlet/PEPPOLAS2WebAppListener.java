@@ -17,6 +17,7 @@
 package com.helger.peppol.as2server.servlet;
 
 import java.io.File;
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,16 +32,16 @@ import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.io.file.FileOperations;
+import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.vendor.VendorInfo;
 import com.helger.html.hc.config.HCSettings;
 import com.helger.peppol.as2server.app.AppSettings;
 import com.helger.peppol.as2server.app.WebAppSettings;
 import com.helger.photon.basic.app.CApplicationID;
 import com.helger.photon.basic.app.PhotonPathMapper;
+import com.helger.photon.basic.app.locale.ILocaleManager;
 import com.helger.photon.basic.app.request.RequestParameterHandlerURLPathNamed;
 import com.helger.photon.basic.app.request.RequestParameterManager;
-import com.helger.photon.core.ajax.servlet.SecureApplicationAjaxServlet;
-import com.helger.photon.core.api.servlet.SecureApplicationAPIServlet;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.app.init.IApplicationInitializer;
 import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
@@ -54,6 +55,7 @@ import com.helger.xservlet.requesttrack.RequestTracker;
  */
 public final class PEPPOLAS2WebAppListener extends AbstractWebAppListenerMultiApp <LayoutExecutionContext>
 {
+  public static final Locale LOCALE_EN_GB = LocaleCache.getInstance ().getLocale ("en", "GB");
   private static final Logger s_aLogger = LoggerFactory.getLogger (PEPPOLAS2WebAppListener.class);
 
   @Override
@@ -164,22 +166,13 @@ public final class PEPPOLAS2WebAppListener extends AbstractWebAppListenerMultiAp
     PhotonPathMapper.removeAllPathMappings ();
     PhotonPathMapper.setApplicationServletPathMapping (CApplicationID.APP_ID_SECURE,
                                                        AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH);
-    PhotonPathMapper.setAjaxServletPathMapping (CApplicationID.APP_ID_SECURE,
-                                                SecureApplicationAjaxServlet.SERVLET_DEFAULT_PATH);
-    PhotonPathMapper.setAPIServletPathMapping (CApplicationID.APP_ID_SECURE,
-                                               SecureApplicationAPIServlet.SERVLET_DEFAULT_PATH);
     PhotonPathMapper.setDefaultApplicationID (CApplicationID.APP_ID_SECURE);
   }
 
   @Override
-  protected void afterContextAndInitializersDone (@Nonnull final ServletContext aSC)
+  public void initLocales (@Nonnull final ILocaleManager aLocaleMgr)
   {
-    super.afterContextAndInitializersDone (aSC);
-  }
-
-  @Override
-  protected void beforeContextDestroyed (@Nonnull final ServletContext aSC)
-  {
-    super.beforeContextDestroyed (aSC);
+    aLocaleMgr.registerLocale (LOCALE_EN_GB);
+    aLocaleMgr.setDefaultLocale (LOCALE_EN_GB);
   }
 }
