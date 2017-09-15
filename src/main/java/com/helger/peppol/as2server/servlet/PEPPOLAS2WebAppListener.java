@@ -28,8 +28,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.locale.LocaleCache;
@@ -37,15 +35,14 @@ import com.helger.commons.vendor.VendorInfo;
 import com.helger.html.hc.config.HCSettings;
 import com.helger.peppol.as2server.app.AppSettings;
 import com.helger.peppol.as2server.app.WebAppSettings;
-import com.helger.photon.basic.app.CApplicationID;
-import com.helger.photon.basic.app.PhotonPathMapper;
+import com.helger.photon.basic.app.appid.CApplicationID;
+import com.helger.photon.basic.app.appid.PhotonGlobalState;
+import com.helger.photon.basic.app.locale.GlobalLocaleManager;
 import com.helger.photon.basic.app.locale.ILocaleManager;
 import com.helger.photon.basic.app.request.RequestParameterHandlerURLPathNamed;
 import com.helger.photon.basic.app.request.RequestParameterManager;
-import com.helger.photon.core.app.context.LayoutExecutionContext;
-import com.helger.photon.core.app.init.IApplicationInitializer;
 import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
-import com.helger.photon.core.servlet.AbstractWebAppListenerMultiApp;
+import com.helger.photon.core.servlet.WebAppListener;
 import com.helger.xservlet.requesttrack.RequestTracker;
 
 /**
@@ -53,14 +50,10 @@ import com.helger.xservlet.requesttrack.RequestTracker;
  *
  * @author Philip Helger
  */
-public final class PEPPOLAS2WebAppListener extends AbstractWebAppListenerMultiApp <LayoutExecutionContext>
+public final class PEPPOLAS2WebAppListener extends WebAppListener
 {
   public static final Locale LOCALE_EN_GB = LocaleCache.getInstance ().getLocale ("en", "GB");
   private static final Logger s_aLogger = LoggerFactory.getLogger (PEPPOLAS2WebAppListener.class);
-
-  @Override
-  protected void onTheVeryBeginning (@Nonnull final ServletContext aSC)
-  {}
 
   @Override
   protected String getInitParameterDebug (@Nonnull final ServletContext aSC)
@@ -115,25 +108,13 @@ public final class PEPPOLAS2WebAppListener extends AbstractWebAppListenerMultiAp
   }
 
   @Override
-  @Nonnull
-  @Nonempty
-  protected ICommonsMap <String, IApplicationInitializer <LayoutExecutionContext>> getAllInitializers ()
-  {
-    final ICommonsMap <String, IApplicationInitializer <LayoutExecutionContext>> ret = new CommonsHashMap <> ();
-    ret.put (CApplicationID.APP_ID_SECURE, new PEPPOLAS2Initializer ());
-    return ret;
-  }
-
-  @Override
-  protected void initGlobals ()
+  protected void afterContextInitialized (@Nonnull final ServletContext aSC)
   {
     VendorInfo.setVendorName ("Philip Helger");
     VendorInfo.setInceptionYear (2015);
     VendorInfo.setVendorEmail ("as2-peppol-server@helger.com");
     VendorInfo.setVendorURL ("https://github.com/phax/as2-peppol-server");
     VendorInfo.setVendorLocation ("Vienna");
-
-    super.initGlobals ();
 
     _checkSettings ();
 
@@ -163,15 +144,10 @@ public final class PEPPOLAS2WebAppListener extends AbstractWebAppListenerMultiAp
       ValueEnforcer.setEnabled (false);
     }
 
-    PhotonPathMapper.removeAllPathMappings ();
-    PhotonPathMapper.setApplicationServletPathMapping (CApplicationID.APP_ID_SECURE,
-                                                       AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH);
-    PhotonPathMapper.setDefaultApplicationID (CApplicationID.APP_ID_SECURE);
-  }
+    PhotonGlobalState.setApplicationServletPathMapping (CApplicationID.APP_ID_SECURE,
+                                                        AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH);
 
-  @Override
-  public void initLocales (@Nonnull final ILocaleManager aLocaleMgr)
-  {
+    final ILocaleManager aLocaleMgr = GlobalLocaleManager.getInstance ();
     aLocaleMgr.registerLocale (LOCALE_EN_GB);
     aLocaleMgr.setDefaultLocale (LOCALE_EN_GB);
   }
