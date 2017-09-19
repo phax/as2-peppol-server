@@ -37,7 +37,6 @@ import com.helger.peppol.as2server.app.AppSettings;
 import com.helger.peppol.as2server.app.WebAppSettings;
 import com.helger.photon.basic.app.appid.CApplicationID;
 import com.helger.photon.basic.app.appid.PhotonGlobalState;
-import com.helger.photon.basic.app.locale.GlobalLocaleManager;
 import com.helger.photon.basic.app.locale.ILocaleManager;
 import com.helger.photon.basic.app.request.RequestParameterHandlerURLPathNamed;
 import com.helger.photon.basic.app.request.RequestParameterManager;
@@ -108,7 +107,7 @@ public final class PEPPOLAS2WebAppListener extends WebAppListener
   }
 
   @Override
-  protected void afterContextInitialized (@Nonnull final ServletContext aSC)
+  protected void initGlobalSettings ()
   {
     VendorInfo.setVendorName ("Philip Helger");
     VendorInfo.setInceptionYear (2015);
@@ -117,18 +116,6 @@ public final class PEPPOLAS2WebAppListener extends WebAppListener
     VendorInfo.setVendorLocation ("Vienna");
 
     _checkSettings ();
-
-    // KBErrorCallback.doSetup (false);
-
-    // On demand
-    HCSettings.setOutOfBandDebuggingEnabled (false);
-
-    // set default UI properties
-
-    // Must be invoked before meta manager init!
-    // KBDefaultSecurity.init ();
-
-    // Ensure meta managers are initialized
 
     // Use path name instead of parameter name for menu item IDs
     RequestParameterManager.getInstance ().setParameterHandler (new RequestParameterHandlerURLPathNamed ());
@@ -146,8 +133,18 @@ public final class PEPPOLAS2WebAppListener extends WebAppListener
 
     PhotonGlobalState.setApplicationServletPathMapping (CApplicationID.APP_ID_SECURE,
                                                         AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH);
+  }
 
-    final ILocaleManager aLocaleMgr = GlobalLocaleManager.getInstance ();
+  @Override
+  protected void initUI ()
+  {
+
+    // On demand
+    HCSettings.setOutOfBandDebuggingEnabled (false);
+  }
+
+  protected void initLocale (@Nonnull final ILocaleManager aLocaleMgr)
+  {
     aLocaleMgr.registerLocale (LOCALE_EN_GB);
     aLocaleMgr.setDefaultLocale (LOCALE_EN_GB);
   }
