@@ -131,8 +131,10 @@ public final class PEPPOLAS2WebAppListener extends WebAppListener
       ValueEnforcer.setEnabled (false);
     }
 
-    PhotonGlobalState.setApplicationServletPathMapping (CApplicationID.APP_ID_SECURE,
-                                                        AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH);
+    PhotonGlobalState.removeAllApplicationServletPathMappings ();
+    PhotonGlobalState.state (CApplicationID.APP_ID_SECURE)
+                     .setServletPath (AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH);
+    PhotonGlobalState.getInstance ().setDefaultApplicationID (CApplicationID.APP_ID_SECURE);
   }
 
   @Override
