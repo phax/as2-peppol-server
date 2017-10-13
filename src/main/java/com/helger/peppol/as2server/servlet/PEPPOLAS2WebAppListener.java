@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.io.file.FileOperations;
+import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.vendor.VendorInfo;
 import com.helger.html.hc.config.HCSettings;
@@ -84,7 +84,7 @@ public final class PEPPOLAS2WebAppListener extends WebAppListener
       throw new IllegalStateException ("The special PEPPOL AS2 folder for " + sWhat + " is unspecified!");
     if (!aPath.exists ())
     {
-      FileOperations.createDirRecursive (aPath);
+      FileOperationManager.INSTANCE.createDirRecursive (aPath);
       s_aLogger.info ("Created special PEPPOL AS2 folder '" + aPath.getAbsolutePath () + "'");
     }
     else
@@ -138,16 +138,16 @@ public final class PEPPOLAS2WebAppListener extends WebAppListener
   }
 
   @Override
-  protected void initUI ()
-  {
-
-    // On demand
-    HCSettings.setOutOfBandDebuggingEnabled (false);
-  }
-
-  protected void initLocale (@Nonnull final ILocaleManager aLocaleMgr)
+  protected void initLocales (@Nonnull final ILocaleManager aLocaleMgr)
   {
     aLocaleMgr.registerLocale (LOCALE_EN_GB);
     aLocaleMgr.setDefaultLocale (LOCALE_EN_GB);
+  }
+
+  @Override
+  protected void initUI ()
+  {
+    // On demand
+    HCSettings.setOutOfBandDebuggingEnabled (false);
   }
 }
