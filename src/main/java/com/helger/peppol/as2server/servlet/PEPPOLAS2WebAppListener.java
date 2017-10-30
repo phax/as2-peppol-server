@@ -29,10 +29,13 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.debug.GlobalDebug;
+import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.vendor.VendorInfo;
 import com.helger.html.hc.config.HCSettings;
+import com.helger.peppol.as2server.app.APKeyManager;
+import com.helger.peppol.as2server.app.APTrustManager;
 import com.helger.peppol.as2server.app.AppSettings;
 import com.helger.peppol.as2server.app.WebAppSettings;
 import com.helger.photon.basic.app.appid.CApplicationID;
@@ -149,5 +152,19 @@ public final class PEPPOLAS2WebAppListener extends WebAppListener
   {
     // On demand
     HCSettings.setOutOfBandDebuggingEnabled (false);
+  }
+
+  @Override
+  protected void initManagers ()
+  {
+    APKeyManager.reloadFromConfiguration ();
+    if (!APKeyManager.isCertificateValid ())
+      throw new InitializationException ("AP key store initialization errors: " +
+                                         APKeyManager.getInitializationError ());
+
+    APTrustManager.reloadFromConfiguration ();
+    if (!APTrustManager.isCertificateValid ())
+      throw new InitializationException ("AP trust store initialization errors: " +
+                                         APTrustManager.getInitializationError ());
   }
 }

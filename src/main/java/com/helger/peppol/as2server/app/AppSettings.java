@@ -26,12 +26,15 @@ import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
+import com.helger.security.keystore.EKeyStoreType;
 import com.helger.settings.ISettings;
 import com.helger.settings.exchange.configfile.ConfigFile;
 import com.helger.settings.exchange.configfile.ConfigFileBuilder;
@@ -41,12 +44,12 @@ import com.helger.settings.exchange.configfile.ConfigFileBuilder;
  * properties file resolving is as follows:
  * <ol>
  * <li>Check for the value of the system property
- * <code>peppol.ap.webapp.properties.path</code></li>
+ * <code>peppol.as2-server.properties.path</code></li>
  * <li>Check for the value of the system property
- * <code>ap.webapp.properties.path</code></li>
- * <li>The filename <code>private-webapp.properties</code> in the root of the
- * classpath</li>
- * <li>The filename <code>webapp.properties</code> in the root of the
+ * <code>as2-server.properties.path</code></li>
+ * <li>The filename <code>private-as2-server.properties</code> in the root of
+ * the classpath</li>
+ * <li>The filename <code>as2-server.properties</code> in the root of the
  * classpath</li>
  * </ol>
  *
@@ -54,6 +57,19 @@ import com.helger.settings.exchange.configfile.ConfigFileBuilder;
  */
 public final class AppSettings extends AbstractGlobalSingleton
 {
+  public static final String KEY_FOLDER_SENDING = "folder.sending";
+  public static final String KEY_FOLDER_SENDING_ERROR = "folder.sending.error";
+  public static final String KEY_FOLDER_RECEIVING = "folder.receiving";
+  public static final String KEY_FOLDER_RECEIVING_ERROR = "folder.receiving.error";
+  public static final String KEY_KEYSTORE_TYPE = "keystore.type";
+  public static final String KEY_KEYSTORE_PATH = "keystore.path";
+  public static final String KEY_KEYSTORE_PASSWORD = "keystore.password";
+  public static final String KEY_KEYSTORE_KEY_ALIAS = "keystore.key.alias";
+  public static final String KEY_KEYSTORE_KEY_PASSWORD = "keystore.key.password";
+  public static final String KEY_TRUSTSTORE_TYPE = "truststore.type";
+  public static final String KEY_TRUSTSTORE_PATH = "truststore.path";
+  public static final String KEY_TRUSTSTORE_PASSWORD = "truststore.password";
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (AppSettings.class);
 
   private static final ConfigFile s_aConfigFile;
@@ -121,7 +137,7 @@ public final class AppSettings extends AbstractGlobalSingleton
   @Nullable
   public static File getFolderForSending ()
   {
-    return _getAsFile (s_aConfigFile.getAsString ("folder.sending"));
+    return _getAsFile (s_aConfigFile.getAsString (KEY_FOLDER_SENDING));
   }
 
   /**
@@ -132,7 +148,7 @@ public final class AppSettings extends AbstractGlobalSingleton
   @Nullable
   public static File getFolderForSendingErrors ()
   {
-    return _getAsFile (s_aConfigFile.getAsString ("folder.sending.error"));
+    return _getAsFile (s_aConfigFile.getAsString (KEY_FOLDER_SENDING_ERROR));
   }
 
   /**
@@ -142,7 +158,7 @@ public final class AppSettings extends AbstractGlobalSingleton
   @Nullable
   public static File getFolderForReceiving ()
   {
-    return _getAsFile (s_aConfigFile.getAsString ("folder.receiving"));
+    return _getAsFile (s_aConfigFile.getAsString (KEY_FOLDER_RECEIVING));
   }
 
   /**
@@ -153,6 +169,91 @@ public final class AppSettings extends AbstractGlobalSingleton
   @Nullable
   public static File getFolderForReceivingErrors ()
   {
-    return _getAsFile (s_aConfigFile.getAsString ("folder.receiving.error"));
+    return _getAsFile (s_aConfigFile.getAsString (KEY_FOLDER_RECEIVING_ERROR));
+  }
+
+  /**
+   * @return The type to the keystore. This is usually JKS. Property
+   *         <code>keystore.type</code>.
+   */
+  @Nonnull
+  public static EKeyStoreType getKeyStoreType ()
+  {
+    final String sType = s_aConfigFile.getAsString (KEY_KEYSTORE_TYPE);
+    return EKeyStoreType.getFromIDCaseInsensitiveOrDefault (sType, EKeyStoreType.JKS);
+  }
+
+  /**
+   * @return The path to the keystore. May be a classpath or an absolute file
+   *         path. Property <code>keystore.path</code>.
+   */
+  @Nullable
+  public static String getKeyStorePath ()
+  {
+    return s_aConfigFile.getAsString (KEY_KEYSTORE_PATH);
+  }
+
+  /**
+   * @return The password required to open the keystore. Property
+   *         <code>keystore.password</code>.
+   */
+  @Nullable
+  public static String getKeyStorePassword ()
+  {
+    return s_aConfigFile.getAsString (KEY_KEYSTORE_PASSWORD);
+  }
+
+  /**
+   * @return The alias of the SMP key in the keystore. Property
+   *         <code>keystore.key.alias</code>.
+   */
+  @Nullable
+  public static String getKeyStoreKeyAlias ()
+  {
+    return s_aConfigFile.getAsString (KEY_KEYSTORE_KEY_ALIAS);
+  }
+
+  /**
+   * @return The password used to access the private key. May be different than
+   *         the password to the overall keystore. Property
+   *         <code>keystore.key.password</code>.
+   */
+  @Nullable
+  public static char [] getKeyStoreKeyPassword ()
+  {
+    return s_aConfigFile.getAsCharArray (KEY_KEYSTORE_KEY_PASSWORD);
+  }
+
+  /**
+   * @return The type to the truststore. This is usually JKS. Property
+   *         <code>truststore.type</code>.
+   */
+  @Nonnull
+  public static EKeyStoreType getTrustStoreType ()
+  {
+    final String sType = s_aConfigFile.getAsString (KEY_TRUSTSTORE_TYPE);
+    return EKeyStoreType.getFromIDCaseInsensitiveOrDefault (sType, PeppolKeyStoreHelper.TRUSTSTORE_TYPE);
+  }
+
+  /**
+   * @return The path to the truststore. May be a classpath or an absolute file
+   *         path. Property <code>truststore.path</code>.
+   */
+  @Nonnull
+  @Nonempty
+  public static String getTrustStorePath ()
+  {
+    return s_aConfigFile.getAsString (KEY_TRUSTSTORE_PATH, PeppolKeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH);
+  }
+
+  /**
+   * @return The password required to open the truststore. Property
+   *         <code>truststore.password</code>.
+   */
+  @Nonnull
+  @Nonempty
+  public static String getTrustStorePassword ()
+  {
+    return s_aConfigFile.getAsString (KEY_TRUSTSTORE_PASSWORD, PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
   }
 }
