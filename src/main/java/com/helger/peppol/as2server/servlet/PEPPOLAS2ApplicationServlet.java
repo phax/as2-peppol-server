@@ -16,23 +16,29 @@
  */
 package com.helger.peppol.as2server.servlet;
 
+import com.helger.commons.http.EHttpMethod;
 import com.helger.peppol.as2server.ui.PEPPOLAS2HtmlProvider;
 import com.helger.photon.core.app.html.IHTMLProvider;
 import com.helger.photon.core.servlet.AbstractApplicationXServletHandler;
-import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+import com.helger.xservlet.AbstractXServlet;
 
-public final class PEPPOLAS2ApplicationServlet extends AbstractSecureApplicationServlet
+public final class PEPPOLAS2ApplicationServlet extends AbstractXServlet
 {
+  public static final String SERVLET_DEFAULT_NAME = "secure";
+  public static final String SERVLET_DEFAULT_PATH = '/' + SERVLET_DEFAULT_NAME;
+
   public PEPPOLAS2ApplicationServlet ()
   {
-    super (new AbstractApplicationXServletHandler ()
+    final AbstractApplicationXServletHandler aHandler = new AbstractApplicationXServletHandler ()
     {
       @Override
       protected IHTMLProvider createHTMLProvider (final IRequestWebScopeWithoutResponse aRequestScope)
       {
         return new PEPPOLAS2HtmlProvider ();
       }
-    });
+    };
+
+    handlerRegistry ().registerHandler (EHttpMethod.GET, aHandler);
   }
 }

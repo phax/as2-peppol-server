@@ -16,32 +16,68 @@
  */
 package com.helger.peppol.as2server.ui;
 
+import java.util.Locale;
+
+import javax.annotation.Nonnull;
+
 import com.helger.commons.url.SimpleURL;
 import com.helger.html.hc.html.grouping.HCP;
+import com.helger.html.hc.html.grouping.HCUL;
+import com.helger.html.hc.html.metadata.HCStyle;
 import com.helger.html.hc.html.root.HCHtml;
 import com.helger.html.hc.html.sections.HCBody;
 import com.helger.html.hc.html.sections.HCH1;
 import com.helger.html.hc.html.sections.HCH2;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.html.textlevel.HCCode;
+import com.helger.peppol.as2server.app.AppSettings;
 import com.helger.peppol.as2server.app.WebAppSettings;
 import com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveServlet;
-import com.helger.photon.core.app.context.ISimpleWebExecutionContext;
 import com.helger.photon.core.app.html.AbstractHTMLProvider;
-import com.helger.xservlet.forcedredirect.ForcedRedirectException;
+import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 public final class PEPPOLAS2HtmlProvider extends AbstractHTMLProvider
 {
   @Override
-  protected void fillBody (final ISimpleWebExecutionContext aSWEC, final HCHtml aHtml) throws ForcedRedirectException
+  protected void fillHeadAndBody (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
+                                  @Nonnull final HCHtml aHtml,
+                                  @Nonnull final Locale aDisplayLocale)
   {
-    final HCBody aBody = aHtml.getBody ();
+    // Add all meta elements
+    addMetaElements (aRequestScope, aHtml.head ());
+    aHtml.head ()
+         .addCSS (new HCStyle ("* { font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";}"));
+
+    // Fill the body
+    final HCBody aBody = aHtml.body ();
     aBody.addChild (new HCH1 ().addChild ("as2-peppol-server"));
     if (WebAppSettings.isTestVersion ())
-      aBody.addChild (new HCH2 ().addChild ("TEST version"));
+      aBody.addChild (new HCH2 ().addChild ("TEST version!"));
     aBody.addChild (new HCP ().addChild ("This site has no further user interface."));
     aBody.addChild (new HCP ().addChild ("The AS2 endpoint is located at ")
-                              .addChild (new HCA (new SimpleURL (aSWEC.getRequestScope ().getContextPath () +
-                                                                 PEPPOLAS2ReceiveServlet.SERVLET_DEFAULT_PATH)).addChild (new HCCode ().addChild (PEPPOLAS2ReceiveServlet.SERVLET_DEFAULT_PATH))));
+                              .addChild (new HCA (new SimpleURL (aRequestScope.getContextPath () +
+                                                                 PEPPOLAS2ReceiveServlet.SERVLET_DEFAULT_PATH)).addChild (PEPPOLAS2ReceiveServlet.SERVLET_DEFAULT_PATH))
+                              .addChild (" and it can only be accessed via HTTP POST."));
+
+    if (WebAppSettings.isTestVersion ())
+    {
+      final HCUL aUL = new HCUL ();
+      aUL.addItem ()
+         .addChild ("Incoming AS2 files reside at: ")
+         .addChild (new HCCode ().addChild (AppSettings.getFolderForReceiving ().getAbsolutePath ()));
+      aUL.addItem ()
+         .addChild ("Outgoing AS2 files sent from: ")
+         .addChild (new HCCode ().addChild (AppSettings.getFolderForSending ().getAbsolutePath ()));
+      aBody.addChild (aUL);
+    }
+
+    aBody.addChild (new HCP ().addChild ("Open Source Software by ")
+                              .addChild (new HCA ().setHref (new SimpleURL ("https://twitter.com/philiphelger"))
+                                                   .setTargetBlank ()
+                                                   .addChild ("@PhilipHelger"))
+                              .addChild (" - ")
+                              .addChild (new HCA ().setHref (new SimpleURL ("https://github.com/phax/as2-peppol-server"))
+                                                   .setTargetBlank ()
+                                                   .addChild ("GitHub project")));
   }
 }

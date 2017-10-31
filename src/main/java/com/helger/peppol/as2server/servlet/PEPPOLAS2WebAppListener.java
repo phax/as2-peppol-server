@@ -157,11 +157,13 @@ public final class PEPPOLAS2WebAppListener extends WebAppListener
   @Override
   protected void initManagers ()
   {
+    // Check keystore configuration
     APKeyManager.reloadFromConfiguration ();
     if (!APKeyManager.isCertificateValid ())
       throw new InitializationException ("AP key store initialization errors: " +
                                          APKeyManager.getInitializationError ());
 
+    // Check truststore configuration
     APTrustManager.reloadFromConfiguration ();
     if (!APTrustManager.isCertificateValid ())
       throw new InitializationException ("AP trust store initialization errors: " +
