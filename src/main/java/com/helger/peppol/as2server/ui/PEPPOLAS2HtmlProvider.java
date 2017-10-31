@@ -20,7 +20,9 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.url.SimpleURL;
+import com.helger.html.hc.html.grouping.HCHR;
 import com.helger.html.hc.html.grouping.HCP;
 import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.html.metadata.HCStyle;
@@ -46,7 +48,8 @@ public final class PEPPOLAS2HtmlProvider extends AbstractHTMLProvider
     // Add all meta elements
     addMetaElements (aRequestScope, aHtml.head ());
     aHtml.head ()
-         .addCSS (new HCStyle ("* { font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";}"));
+         .addCSS (new HCStyle ("* { font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";}" +
+                               "code { font-family:Menlo,Monaco,Consolas,\"Courier New\",monospace; font-size:1em; padding:2px 4px; font-size:90%; color:#c7254e; background-color:#f9f2f4; border-radius:4px }"));
 
     // Fill the body
     final HCBody aBody = aHtml.body ();
@@ -59,8 +62,9 @@ public final class PEPPOLAS2HtmlProvider extends AbstractHTMLProvider
                                                                  PEPPOLAS2ReceiveServlet.SERVLET_DEFAULT_PATH)).addChild (PEPPOLAS2ReceiveServlet.SERVLET_DEFAULT_PATH))
                               .addChild (" and it can only be accessed via HTTP POST."));
 
-    if (WebAppSettings.isTestVersion ())
+    if (GlobalDebug.isDebugMode ())
     {
+      aBody.addChild (new HCH2 ().addChild ("Debug information"));
       final HCUL aUL = new HCUL ();
       aUL.addItem ()
          .addChild ("Incoming AS2 files reside at: ")
@@ -68,9 +72,15 @@ public final class PEPPOLAS2HtmlProvider extends AbstractHTMLProvider
       aUL.addItem ()
          .addChild ("Outgoing AS2 files sent from: ")
          .addChild (new HCCode ().addChild (AppSettings.getFolderForSending ().getAbsolutePath ()));
+      aUL.addItem ()
+         .addChild ("Key store used: ")
+         .addChild (new HCCode ().addChild (AppSettings.getKeyStorePath ()))
+         .addChild (" of type ")
+         .addChild (new HCCode ().addChild (AppSettings.getKeyStoreType ().getID ()));
       aBody.addChild (aUL);
     }
 
+    aBody.addChild (new HCHR ());
     aBody.addChild (new HCP ().addChild ("Open Source Software by ")
                               .addChild (new HCA ().setHref (new SimpleURL ("https://twitter.com/philiphelger"))
                                                    .setTargetBlank ()

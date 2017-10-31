@@ -19,7 +19,7 @@ package com.helger.peppol.as2server.servlet;
 import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 
-import com.helger.as2lib.cert.PKCS12CertificateFactory;
+import com.helger.as2lib.cert.CertificateFactory;
 import com.helger.as2lib.exception.OpenAS2Exception;
 import com.helger.as2lib.message.AS2Message;
 import com.helger.as2lib.partner.xml.XMLPartnershipFactory;
@@ -51,13 +51,14 @@ public class PEPPOLAS2ReceiveXServletHandler extends AbstractAS2ReceiveXServletH
   {
     final AS2Session ret = new AS2Session ();
     {
-      final PKCS12CertificateFactory aCF = new PKCS12CertificateFactory ();
+      final CertificateFactory aCF = new CertificateFactory ();
       aCF.initDynamicComponent (ret,
-                                new StringMap ().add (PKCS12CertificateFactory.ATTR_FILENAME,
-                                                      AppSettings.getKeyStorePath ())
-                                                .add (PKCS12CertificateFactory.ATTR_PASSWORD,
+                                new StringMap ().add (CertificateFactory.ATTR_TYPE,
+                                                      AppSettings.getKeyStoreType ().getID ())
+                                                .add (CertificateFactory.ATTR_FILENAME, AppSettings.getKeyStorePath ())
+                                                .add (CertificateFactory.ATTR_PASSWORD,
                                                       AppSettings.getKeyStorePassword ())
-                                                .add (PKCS12CertificateFactory.ATTR_SAVE_CHANGES_TO_FILE, true));
+                                                .add (CertificateFactory.ATTR_SAVE_CHANGES_TO_FILE, true));
       ret.setCertificateFactory (aCF);
     }
 
