@@ -100,7 +100,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>as2-lib-parent-pom</artifactId>
-        <version>4.0.0</version>
+        <version>4.0.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -114,7 +114,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-ubl-parent-pom</artifactId>
-        <version>6.0.0</version>
+        <version>6.0.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
