@@ -16,3 +16,6 @@ target/
 /jetty-log/
 **/*.iml
 /as2-server-data/
+/.settings/ 
+/.project 
+/.classpath 
