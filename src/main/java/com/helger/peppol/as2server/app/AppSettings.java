@@ -70,7 +70,7 @@ public final class AppSettings extends AbstractGlobalSingleton
   public static final String KEY_TRUSTSTORE_PATH = "truststore.path";
   public static final String KEY_TRUSTSTORE_PASSWORD = "truststore.password";
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AppSettings.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AppSettings.class);
 
   private static final ConfigFile s_aConfigFile;
 
@@ -84,7 +84,7 @@ public final class AppSettings extends AbstractGlobalSingleton
     s_aConfigFile = aCFB.build ();
     if (!s_aConfigFile.isRead ())
       throw new IllegalStateException ("Failed to read PEPPOL AP AS2 server properties from " + aCFB.getAllPaths ());
-    s_aLogger.info ("Read PEPPOL AP AS2 server properties from " + s_aConfigFile.getReadResource ().getPath ());
+    LOGGER.info ("Read PEPPOL AP AS2 server properties from " + s_aConfigFile.getReadResource ().getPath ());
   }
 
   @Deprecated

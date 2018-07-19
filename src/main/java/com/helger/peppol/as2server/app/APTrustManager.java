@@ -40,7 +40,7 @@ import com.helger.security.keystore.LoadedKeyStore;
  */
 public final class APTrustManager extends AbstractGlobalSingleton
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (APTrustManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (APTrustManager.class);
 
   private static final AtomicBoolean s_aCertificateValid = new AtomicBoolean (false);
   private static EKeyStoreLoadError s_eInitError;
@@ -67,7 +67,7 @@ public final class APTrustManager extends AbstractGlobalSingleton
     }
     m_aTrustStore = aTrustStoreLoading.getKeyStore ();
 
-    s_aLogger.info ("APTrustManager successfully initialized with truststore '" +
+    LOGGER.info ("APTrustManager successfully initialized with truststore '" +
                     AppSettings.getTrustStorePath () +
                     "'");
     s_aCertificateValid.set (true);

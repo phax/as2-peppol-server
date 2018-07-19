@@ -55,7 +55,7 @@ import com.helger.xservlet.requesttrack.RequestTracker;
 public final class PEPPOLAS2WebAppListener extends WebAppListener
 {
   public static final Locale LOCALE_EN_GB = LocaleCache.getInstance ().getLocale ("en", "GB");
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PEPPOLAS2WebAppListener.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PEPPOLAS2WebAppListener.class);
 
   @Override
   protected String getInitParameterDebug (@Nonnull final ServletContext aSC)
@@ -88,12 +88,12 @@ public final class PEPPOLAS2WebAppListener extends WebAppListener
     if (!aPath.exists ())
     {
       FileOperationManager.INSTANCE.createDirRecursive (aPath);
-      s_aLogger.info ("Created special PEPPOL AS2 folder '" + aPath.getAbsolutePath () + "'");
+      LOGGER.info ("Created special PEPPOL AS2 folder '" + aPath.getAbsolutePath () + "'");
     }
     else
     {
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Special PEPPOL AS2 folder '" +
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Special PEPPOL AS2 folder '" +
                          aPath.getAbsolutePath () +
                          "' for " +
                          sWhat +

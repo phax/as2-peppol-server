@@ -49,7 +49,7 @@ import com.helger.xml.serialize.write.XMLWriter;
 @IsSPIImplementation
 public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AS2IncomingSBDHandler.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AS2IncomingSBDHandler.class);
 
   /**
    * Interpret the payload of the provided SBD as a UBL document and return the
@@ -101,7 +101,7 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
       else
       {
         // Handle UBL document
-        s_aLogger.info ("Successfully read UBL 2.1 " + eDocType.name () + " document. Continue from here!");
+        LOGGER.info ("Successfully read UBL 2.1 " + eDocType.name () + " document. Continue from here!");
         return Pair.create (eDocType, aUBLDocument);
       }
     }
@@ -113,7 +113,7 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
       SBDHWriter.standardBusinessDocument ().write (aStandardBusinessDocument, aFile);
     else
       XMLWriter.writeToStream (aElement, FileHelper.getOutputStream (aFile, EAppend.TRUNCATE));
-    s_aLogger.error ("Wrote received erroneous SBDH to " + aFile.getAbsolutePath ());
+    LOGGER.error ("Wrote received erroneous SBDH to " + aFile.getAbsolutePath ());
 
     throw new OpenAS2Exception ("Invalid UBL 2.1 document provided:\n" + aErrors.getAllMessages ());
   }
@@ -132,6 +132,6 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
     else
       new UBL21WriterBuilder <> (aPair.getFirst ()).write (aPair.getSecond (), aFile);
 
-    s_aLogger.error ("Wrote received good SBDH to " + aFile.getAbsolutePath ());
+    LOGGER.error ("Wrote received good SBDH to " + aFile.getAbsolutePath ());
   }
 }

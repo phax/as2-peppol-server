@@ -42,7 +42,7 @@ import com.helger.security.keystore.LoadedKeyStore;
  */
 public final class APKeyManager extends AbstractGlobalSingleton
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (APKeyManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (APKeyManager.class);
 
   private static final AtomicBoolean s_aCertificateValid = new AtomicBoolean (false);
   private static EKeyStoreLoadError s_eInitError;
@@ -82,7 +82,7 @@ public final class APKeyManager extends AbstractGlobalSingleton
     }
 
     m_aKeyEntry = aLoadedKey.getKeyEntry ();
-    s_aLogger.info ("APKeyManager successfully initialized with keystore '" +
+    LOGGER.info ("APKeyManager successfully initialized with keystore '" +
                     AppSettings.getKeyStorePath () +
                     "' and alias '" +
                     AppSettings.getKeyStoreKeyAlias () +
