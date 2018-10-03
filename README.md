@@ -26,12 +26,44 @@ Before this project can be run in a useful way a PKCS12 keystore with your PEPPO
 Btw. you need no database to run this server. If you want one just use one - but you don't need to. 
 
 # Run it
-The easiest way to run and debug the application is to execute class `com.helger.peppol.as2server.jetty.RunInJettyPEPPOLAS2` from within your IDE (as a standard Java application). It starts up a minimal server and listens on port 8080. The servlet that receives PEPPOL messages listens to path `/as2/` and supports only HTTP method POST.
-After startup locate your browser to `http://localhost:8080` to check if it is running.
+
+There are two options:
+
+1. **running locally on your machine.** To do so you need to proceed the following steps:
+    * get your machine ready for java development with JDK 1.8.X, maven, some IDE tool, e.g. [Eclipse](https://www.eclipse.org/downloads/)
+    * you generate keystore with your certificate obtained from PEPPOP authority or self-signed (see procedure below)
+    * build the project 
+    * execute class `com.helger.peppol.as2server.jetty.RunInJettyPEPPOLAS2` from within your IDE (as a standard Java application). It starts up a minimal server and listens on port 8080. The servlet that receives PEPPOL messages listens to path `/as2/` and supports only HTTP method POST.
+
+2. **run already prepared application in Docker container** To do so you have [Docker](https://docs.docker.com/get-started/) installed in your machine, then do: `docker build -t refapp . && docker run --rm -p 8080:8080 refapp`. This approach is useful if you need just run the reference implementation against your PEPPOL Access Point implementation.
+
+In either case after the app startup, locate your browser to `http://localhost:8080` to check if it is running.
 
 # Test it
 Now that the AS2 server is running you may have a closer look at my **[as2-peppol-client](https://github.com/phax/as2-peppol-client)** project which lets you send AS2 messages to a server.
 If both client and server are configured correctly a successful message exchange should be easily possible.
+
+## Notes
+
+### Self-signed certificate
+
+* follow the [instruction](https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs)
+
+**IMPORTANT** 
+
+    * CN -- Common Name must follow PEPPOL AP name convention and be in format : APP_1000000XXX, for example APP_1000000312
+    * it uses PKCS12 keystore
+    * AS2 client uses predefined names for the following items:
+        - aliasname must match to the certificate CN (Common Name)
+        - key store password shall be 'peppol'
+        - keystore filename shall be 'test-client-certs.p12' to work with [as2-peppol-client](https://github.com/phax/as2-peppol-client)
+
+For example:
+```shell
+    $ openssl req -out teho3-certificate.csr -new -newkey rsa:2048 -nodes -keyout teho3-private.key
+    $ openssl x509 -signkey teho3-private.key -in teho3-certificate.csr -req -days 365 -out teho3.cer
+    $ openssl pkcs12 -export -in teho3.cer -inkey teho3-private.key -out test-client-certs.p12 -passout pass:peppol -name APP_1000000112
+```
 
 ---
 

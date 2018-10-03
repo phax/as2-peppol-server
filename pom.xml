@@ -65,6 +65,7 @@
     <m2e.jaxrs.activation>false</m2e.jaxrs.activation>
     <m2e.jpa.activation>false</m2e.jpa.activation>
     <m2e.jsf.activation>false</m2e.jsf.activation>
+    <jetty.maven.plugin>9.4.3.v20170317</jetty.maven.plugin>
   </properties>
 
   <dependencyManagement>
@@ -212,6 +213,15 @@
       <artifactId>ph-oton-jetty</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-runner -->
+    <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-runner</artifactId>
+        <version>9.4.12.v20180830</version>
+        <scope>provided</scope>
+    </dependency>
+
   </dependencies>
   
   <build>
@@ -244,6 +254,29 @@
             <exclude>jetty-log/**</exclude>
           </excludes>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>${jetty.maven.plugin}</version>
+        <!-- fix for https://stackoverflow.com/questions/26305416/spring-aop-gives-illegalargumentexception-with-java-8 -->
+        <configuration>
+            <webApp>
+                <webInfIncludeJarPattern>.*/^(asm-all-repackaged)[^/]*\.jar$</webInfIncludeJarPattern>
+            </webApp>
+        </configuration>
+        <dependencies>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm</artifactId>
+                <version>5.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-commons</artifactId>
+                <version>5.2</version>
+            </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
