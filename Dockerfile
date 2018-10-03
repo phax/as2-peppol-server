@@ -2,8 +2,7 @@ FROM maven:3.5.2-jdk-8-alpine
 WORKDIR /as2-peppol-server
 COPY pom.xml /as2-peppol-server/pom.xml
 COPY src /as2-peppol-server/src
-VOLUME /as2-peppol-server/data
-VOLUME [ "/var/www/peppol-as2/receive", "/var/www/peppol-as2/send" ]
+VOLUME [ "/var/www/peppol-as2/receive", "/var/www/peppol-as2/send", "/var/www/peppol-as2/data" ]
 EXPOSE 8080
 
 RUN apk update
@@ -31,8 +30,16 @@ RUN openssl x509 -signkey my-private.key -in my-certificate.csr -req -days 365 -
 RUN openssl pkcs12 -export -in my-certificate.cer -inkey my-private.key \
     -out ap.pilot.p12 -passout pass:peppol -name ap.pilot
 
-# https://www.eclipse.org/jetty/documentation/9.4.x/jetty-maven-plugin.html
+# building step
 WORKDIR /as2-peppol-server
-RUN mvn package -Dmaven.test.skip=true
+# NOTE: in maven Docker image default Maven repository location is configured as a volume 
+# so anything copied there in a Dockerfile at build time is lost in /root/.m2/repository
+# To preserve the project dependecies in the image we use special Maven settings
+# for details see https://hub.docker.com/_/maven/
+RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package
+
 RUN mvn jetty:deploy-war
-CMD ["mvn", "jetty:run"]
+#NOTE : please refer to jetty-runner version in './pom.xml'
+RUN ln -s /root/.m2/repository/org/eclipse/jetty/jetty-runner/9.4.12.v20180830/jetty-runner-9.4.12.v20180830.jar jetty-runner.jar
+
+CMD ["java", "-jar", "jetty-runner.jar", "./target/as2-peppol-server-1.0.0-SNAPSHOT.war"]

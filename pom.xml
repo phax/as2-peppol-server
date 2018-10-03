@@ -213,6 +213,15 @@
       <artifactId>ph-oton-jetty</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-runner -->
+    <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-runner</artifactId>
+        <version>9.4.12.v20180830</version>
+        <scope>provided</scope>
+    </dependency>
+
   </dependencies>
   
   <build>
