@@ -128,9 +128,15 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
     final File aFile = new File (AppSettings.getFolderForReceiving (),
                                  GlobalIDFactory.getNewPersistentStringID () + ".xml");
     if (true)
+    {
+      // Write the complete SBDH to a folder
       SBDHWriter.standardBusinessDocument ().write (aStandardBusinessDocument, aFile);
+    }
     else
+    {
+      // Write only the extracted UBL payload to a file
       new UBL21WriterBuilder <> (aPair.getFirst ()).write (aPair.getSecond (), aFile);
+    }
 
     LOGGER.error ("Wrote received good SBDH to " + aFile.getAbsolutePath ());
   }
