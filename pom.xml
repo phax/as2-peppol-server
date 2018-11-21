@@ -101,7 +101,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>as2-lib-parent-pom</artifactId>
-        <version>4.1.1</version>
+        <version>4.2.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -265,12 +265,12 @@
           <dependency>
             <groupId>org.ow2.asm</groupId>
             <artifactId>asm</artifactId>
-            <version>6.2.1</version>
+            <version>7.0</version>
           </dependency>
           <dependency>
             <groupId>org.ow2.asm</groupId>
             <artifactId>asm-commons</artifactId>
-            <version>6.2.1</version>
+            <version>7.0</version>
           </dependency>
         </dependencies>
       </plugin>
