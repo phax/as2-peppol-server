@@ -39,7 +39,7 @@ WORKDIR /as2-peppol-server
 RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package
 
 RUN mvn jetty:deploy-war
-#NOTE : please refer to jetty-runner version in './pom.xml'
-RUN ln -s /root/.m2/repository/org/eclipse/jetty/jetty-runner/9.4.12.v20180830/jetty-runner-9.4.12.v20180830.jar jetty-runner.jar
+#NOTE : please refer to jetty version in './pom.xml'
+RUN ln -s /root/.m2/repository/org/eclipse/jetty/jetty-runner/9.4.14.v20181114/jetty-runner-9.4.14.v20181114.jar jetty-runner.jar
 
 CMD ["java", "-jar", "jetty-runner.jar", "./target/as2-peppol-server-1.0.0-SNAPSHOT.war"]
