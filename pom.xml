@@ -101,6 +101,20 @@
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
+        <artifactId>ph-ubl-parent-pom</artifactId>
+        <version>6.1.1</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
+        <artifactId>ph-oton-parent-pom</artifactId>
+        <version>8.1.2</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
         <artifactId>as2-lib-parent-pom</artifactId>
         <version>4.2.1</version>
         <type>pom</type>
@@ -110,13 +124,6 @@
         <groupId>com.helger</groupId>
         <artifactId>peppol-commons-parent-pom</artifactId>
         <version>6.2.3</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.helger</groupId>
-        <artifactId>ph-ubl-parent-pom</artifactId>
-        <version>6.1.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -137,13 +144,6 @@
         <artifactId>as2-peppol-servlet</artifactId>
         <version>5.0.3</version>
       </dependency>
-      <dependency>
-        <groupId>com.helger</groupId>
-        <artifactId>ph-oton-parent-pom</artifactId>
-        <version>8.1.2</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -151,6 +151,14 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-commons</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-ubl21</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-oton-core</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -170,15 +178,7 @@
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
-      <artifactId>ph-ubl21</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger</groupId>
       <artifactId>peppol-smp-client</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>ph-oton-core</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
