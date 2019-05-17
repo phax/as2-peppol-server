@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-FROM maven:3.5.2-jdk-8-alpine
+FROM maven:3.6-jdk-8-alpine
 WORKDIR /as2-peppol-server
 COPY pom.xml /as2-peppol-server/pom.xml
 COPY src /as2-peppol-server/src
