@@ -29,6 +29,7 @@ import com.helger.as2lib.exception.OpenAS2Exception;
 import com.helger.collection.pair.IPair;
 import com.helger.collection.pair.Pair;
 import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.commons.http.HttpHeaderMap;
 import com.helger.commons.id.factory.GlobalIDFactory;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileHelper;
@@ -118,7 +119,8 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
     throw new OpenAS2Exception ("Invalid UBL 2.1 document provided:\n" + aErrors.getAllMessages ());
   }
 
-  public void handleIncomingSBD (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws Exception
+  public void handleIncomingSBD (@Nonnull final HttpHeaderMap aHeaders,
+                                 @Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws Exception
   {
     // Grab data and parse (for XSD validation)
     // Throws Exception on error
