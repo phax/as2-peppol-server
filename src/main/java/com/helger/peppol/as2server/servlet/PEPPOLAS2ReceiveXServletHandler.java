@@ -38,7 +38,7 @@ import com.helger.commons.io.relative.FileRelativeIO;
 import com.helger.commons.io.relative.IFileRelativeIO;
 import com.helger.peppol.as2server.app.AppSettings;
 import com.helger.peppol.as2servlet.AS2ServletSBDModule;
-import com.helger.photon.basic.app.io.WebFileIO;
+import com.helger.photon.app.io.WebFileIO;
 
 public class PEPPOLAS2ReceiveXServletHandler extends AbstractAS2ReceiveXServletHandler
 {

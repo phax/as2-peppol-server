@@ -17,8 +17,8 @@
 package com.helger.peppol.as2server.servlet;
 
 import com.helger.commons.http.EHttpMethod;
-import com.helger.photon.basic.xservlet.RootXServletHandler;
 import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
+import com.helger.photon.core.servlet.RootXServletHandler;
 import com.helger.xservlet.AbstractXServlet;
 
 public class PEPPOLAS2RootServlet extends AbstractXServlet

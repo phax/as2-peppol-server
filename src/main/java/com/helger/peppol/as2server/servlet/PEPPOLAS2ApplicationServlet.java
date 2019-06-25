@@ -18,7 +18,7 @@ package com.helger.peppol.as2server.servlet;
 
 import com.helger.commons.http.EHttpMethod;
 import com.helger.peppol.as2server.ui.PEPPOLAS2HtmlProvider;
-import com.helger.photon.core.app.html.IHTMLProvider;
+import com.helger.photon.app.html.IHTMLProvider;
 import com.helger.photon.core.servlet.AbstractApplicationXServletHandler;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 import com.helger.xservlet.AbstractXServlet;

@@ -35,7 +35,7 @@ import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.peppol.as2server.app.AppSettings;
 import com.helger.peppol.as2server.app.WebAppSettings;
 import com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveServlet;
-import com.helger.photon.core.app.html.AbstractHTMLProvider;
+import com.helger.photon.core.html.AbstractHTMLProvider;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 public final class PEPPOLAS2HtmlProvider extends AbstractHTMLProvider
