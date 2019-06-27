@@ -51,12 +51,12 @@ RUN openssl pkcs12 -export -in my-certificate.cer -inkey my-private.key \
 WORKDIR /as2-peppol-server
 # NOTE: in maven Docker image default Maven repository location is configured as a volume 
 # so anything copied there in a Dockerfile at build time is lost in /root/.m2/repository
-# To preserve the project dependecies in the image we use special Maven settings
+# To preserve the project dependencies in the image we use special Maven settings
 # for details see https://hub.docker.com/_/maven/
 RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package
 
 RUN mvn jetty:deploy-war
 #NOTE : please refer to jetty version in './pom.xml'
-RUN ln -s /root/.m2/repository/org/eclipse/jetty/jetty-runner/9.4.18.v20190429/jetty-runner-9.4.18.v20190429.jar jetty-runner.jar
+RUN ln -s /root/.m2/repository/org/eclipse/jetty/jetty-runner/9.4.19.v20190610/jetty-runner-9.4.19.v20190610.jar jetty-runner.jar
 
 CMD ["java", "-jar", "jetty-runner.jar", "./target/as2-peppol-server-1.0.0-SNAPSHOT.war"]
