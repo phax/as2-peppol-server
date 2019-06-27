@@ -17,7 +17,10 @@
     limitations under the License.
 
 -->
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<web-app version="2.5" 
+         xmlns="http://java.sun.com/xml/ns/javaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <display-name>as2-peppol-server</display-name>
   <description>phoss Standalone PEPPOL AS2 server</description>
   
@@ -31,12 +34,21 @@
   
   <!-- AS2 stuff -->
   <servlet>
-    <servlet-name>PEPPOLAS2ReceiveServlet</servlet-name>
-    <servlet-class>com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveServlet</servlet-class>
+    <servlet-name>PEPPOLAS2ReceiveV1Servlet</servlet-name>
+    <servlet-class>com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveV1Servlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PEPPOLAS2ReceiveServlet</servlet-name>
+    <servlet-name>PEPPOLAS2ReceiveV1Servlet</servlet-name>
     <url-pattern>/as2/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>PEPPOLAS2ReceiveV2Servlet</servlet-name>
+    <servlet-class>com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveV2Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PEPPOLAS2ReceiveV2Servlet</servlet-name>
+    <url-pattern>/as2v2/*</url-pattern>
   </servlet-mapping>
 
   <!-- UI stuff -->

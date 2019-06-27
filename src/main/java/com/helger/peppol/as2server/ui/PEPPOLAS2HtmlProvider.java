@@ -34,7 +34,7 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.peppol.as2server.app.AppSettings;
 import com.helger.peppol.as2server.app.WebAppSettings;
-import com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveServlet;
+import com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveV1Servlet;
 import com.helger.photon.core.html.AbstractHTMLProvider;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
@@ -59,7 +59,7 @@ public final class PEPPOLAS2HtmlProvider extends AbstractHTMLProvider
     aBody.addChild (new HCP ().addChild ("This site has no further user interface."));
     aBody.addChild (new HCP ().addChild ("The AS2 endpoint is located at ")
                               .addChild (new HCA (new SimpleURL (aRequestScope.getContextPath () +
-                                                                 PEPPOLAS2ReceiveServlet.SERVLET_DEFAULT_PATH)).addChild (PEPPOLAS2ReceiveServlet.SERVLET_DEFAULT_PATH))
+                                                                 PEPPOLAS2ReceiveV1Servlet.SERVLET_DEFAULT_PATH)).addChild (PEPPOLAS2ReceiveV1Servlet.SERVLET_DEFAULT_PATH))
                               .addChild (" and it can only be accessed via HTTP POST."));
 
     if (GlobalDebug.isDebugMode ())

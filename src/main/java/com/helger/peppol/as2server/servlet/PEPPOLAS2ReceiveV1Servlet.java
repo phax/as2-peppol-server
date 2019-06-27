@@ -16,25 +16,25 @@
  */
 package com.helger.peppol.as2server.servlet;
 
-import com.helger.as2servlet.AS2ReceiveServlet;
 import com.helger.commons.http.EHttpMethod;
+import com.helger.peppol.as2servlet.EPeppolAS2Version;
 import com.helger.xservlet.AbstractXServlet;
 
 /**
- * Special version of the {@link AS2ReceiveServlet} customizing the path to the
- * AS2 configuration file. The absolute path to the configuration file can be
- * provided using the "peppol.ap.server.config.path" or the
- * "ap.server.config.path" system property.
+ * This servlet is used to accept PEPPOL AS2 v1 messages (for the transport
+ * profile <code>busdox-transport-as2-ver1p0</code>)
  *
  * @author Philip Helger
  */
-public final class PEPPOLAS2ReceiveServlet extends AbstractXServlet
+public final class PEPPOLAS2ReceiveV1Servlet extends AbstractXServlet
 {
   public static final String SERVLET_DEFAULT_NAME = "as2";
   public static final String SERVLET_DEFAULT_PATH = '/' + SERVLET_DEFAULT_NAME;
 
-  public PEPPOLAS2ReceiveServlet ()
+  public PEPPOLAS2ReceiveV1Servlet ()
   {
-    handlerRegistry ().registerHandler (EHttpMethod.POST, new PEPPOLAS2ReceiveXServletHandler (), false);
+    handlerRegistry ().registerHandler (EHttpMethod.POST,
+                                        new PEPPOLAS2ReceiveXServletHandler (EPeppolAS2Version.V1),
+                                        false);
   }
 }

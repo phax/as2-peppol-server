@@ -32,18 +32,31 @@ import com.helger.as2lib.session.AS2Session;
 import com.helger.as2servlet.AbstractAS2ReceiveXServletHandler;
 import com.helger.as2servlet.util.AS2ServletPartnershipFactory;
 import com.helger.as2servlet.util.AS2ServletReceiverModule;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.attr.StringMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.io.relative.FileRelativeIO;
 import com.helger.commons.io.relative.IFileRelativeIO;
 import com.helger.peppol.as2server.app.AppSettings;
 import com.helger.peppol.as2servlet.AS2ServletSBDModule;
+import com.helger.peppol.as2servlet.EPeppolAS2Version;
 import com.helger.photon.app.io.WebFileIO;
 
 public class PEPPOLAS2ReceiveXServletHandler extends AbstractAS2ReceiveXServletHandler
 {
-  public PEPPOLAS2ReceiveXServletHandler ()
-  {}
+  private final EPeppolAS2Version m_eAS2Version;
+
+  public PEPPOLAS2ReceiveXServletHandler (@Nonnull final EPeppolAS2Version eAS2Version)
+  {
+    ValueEnforcer.notNull (eAS2Version, "AS2Version");
+    m_eAS2Version = eAS2Version;
+  }
+
+  @Nonnull
+  public final EPeppolAS2Version getAS2Version ()
+  {
+    return m_eAS2Version;
+  }
 
   @Override
   protected AS2Session createAS2Session (@Nonnull final ICommonsMap <String, String> aInitParams) throws OpenAS2Exception,
@@ -142,7 +155,7 @@ public class PEPPOLAS2ReceiveXServletHandler extends AbstractAS2ReceiveXServletH
 
       {
         // Process incoming SBD documents
-        final AS2ServletSBDModule aMod = new AS2ServletSBDModule ();
+        final AS2ServletSBDModule aMod = new AS2ServletSBDModule (m_eAS2Version);
         aMod.initDynamicComponent (ret, null);
         aMP.addModule (aMod);
       }
