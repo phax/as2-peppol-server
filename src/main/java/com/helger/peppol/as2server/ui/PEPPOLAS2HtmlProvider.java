@@ -35,6 +35,8 @@ import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.peppol.as2server.app.AppSettings;
 import com.helger.peppol.as2server.app.WebAppSettings;
 import com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveV1Servlet;
+import com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveV2Servlet;
+import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.photon.core.html.AbstractHTMLProvider;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
@@ -49,7 +51,8 @@ public final class PEPPOLAS2HtmlProvider extends AbstractHTMLProvider
     addMetaElements (aRequestScope, aHtml.head ());
     aHtml.head ()
          .addCSS (new HCStyle ("* { font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";}" +
-                               "code { font-family:Menlo,Monaco,Consolas,\"Courier New\",monospace; font-size:1em; padding:2px 4px; font-size:90%; color:#c7254e; background-color:#f9f2f4; border-radius:4px }"));
+                               "code { font-family:Menlo,Monaco,Consolas,\"Courier New\",monospace; font-size:1em; padding:2px 4px; font-size:90%; color:#c7254e; background-color:#f9f2f4; border-radius:4px }" +
+                               "a, a:link, a:visited, a:hover, a:active { color:#36f; }"));
 
     // Fill the body
     final HCBody aBody = aHtml.body ();
@@ -57,9 +60,17 @@ public final class PEPPOLAS2HtmlProvider extends AbstractHTMLProvider
     if (WebAppSettings.isTestVersion ())
       aBody.addChild (new HCH2 ().addChild ("TEST version!"));
     aBody.addChild (new HCP ().addChild ("This site has no further user interface."));
-    aBody.addChild (new HCP ().addChild ("The AS2 endpoint is located at ")
+    aBody.addChild (new HCP ().addChild ("The AS2 endpoint for V1 (")
+                              .addChild (new HCCode ().addChild (ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID ()))
+                              .addChild (") is located at ")
                               .addChild (new HCA (new SimpleURL (aRequestScope.getContextPath () +
                                                                  PEPPOLAS2ReceiveV1Servlet.SERVLET_DEFAULT_PATH)).addChild (PEPPOLAS2ReceiveV1Servlet.SERVLET_DEFAULT_PATH))
+                              .addChild (" and it can only be accessed via HTTP POST."));
+    aBody.addChild (new HCP ().addChild ("The AS2 endpoint for V2 (")
+                              .addChild (new HCCode ().addChild (ESMPTransportProfile.TRANSPORT_PROFILE_AS2_V2.getID ()))
+                              .addChild (") is located at ")
+                              .addChild (new HCA (new SimpleURL (aRequestScope.getContextPath () +
+                                                                 PEPPOLAS2ReceiveV2Servlet.SERVLET_DEFAULT_PATH)).addChild (PEPPOLAS2ReceiveV2Servlet.SERVLET_DEFAULT_PATH))
                               .addChild (" and it can only be accessed via HTTP POST."));
 
     if (GlobalDebug.isDebugMode ())
