@@ -149,7 +149,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>as2-peppol-servlet</artifactId>
-        <version>5.1.0</version>
+        <version>5.1.1</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
