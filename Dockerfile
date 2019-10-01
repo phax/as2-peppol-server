@@ -40,7 +40,7 @@ RUN openssl req \
     -new \
     -newkey rsa:2048 \
     -nodes \
-    -subj "/emailAddress=igor@iwa.fi/CN=APP_1000000312/O=IWA.fi/L=Helsinki/ST=Uusimaa/C=FI" \
+    -subj "/emailAddress=as2-peppol-server@example.org/CN=APP_1000000312/O=IWA.fi/L=Helsinki/ST=Uusimaa/C=FI" \
     -keyout my-private.key \
     -out my-certificate.csr
 RUN openssl x509 -signkey my-private.key -in my-certificate.csr -req -days 365 -out my-certificate.cer
@@ -57,6 +57,6 @@ RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package
 
 RUN mvn jetty:deploy-war
 #NOTE : please refer to jetty version in './pom.xml'
-RUN ln -s /root/.m2/repository/org/eclipse/jetty/jetty-runner/9.4.20.v20190813/jetty-runner-9.4.20.v20190813.jar jetty-runner.jar
+RUN ln -s /root/.m2/repository/org/eclipse/jetty/jetty-runner/9.4.21.v20190926/jetty-runner-9.4.21.v20190926.jar jetty-runner.jar
 
 CMD ["java", "-jar", "jetty-runner.jar", "./target/as2-peppol-server-1.0.0-SNAPSHOT.war"]
