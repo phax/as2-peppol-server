@@ -29,15 +29,33 @@ Btw. you need no database to run this server. If you want one just use one - but
 
 There are two options:
 
-1. **running locally on your machine.** To do so you need to proceed the following steps:
+### Running locally on your machine
+
+To do so you need to proceed the following steps:
     * get your machine ready for java development with JDK 1.8.X, maven, some IDE tool, e.g. [Eclipse](https://www.eclipse.org/downloads/)
     * you generate keystore with your certificate obtained from PEPPOP authority or self-signed (see procedure below)
     * build the project 
     * execute class `com.helger.peppol.as2server.jetty.RunInJettyPEPPOLAS2` from within your IDE (as a standard Java application). It starts up a minimal server and listens on port 8080. The servlet that receives PEPPOL messages listens to path `/as2/` and supports only HTTP method POST.
 
-2. **run already prepared application in Docker container** To do so you have [Docker](https://docs.docker.com/get-started/) installed in your machine, then do: `docker build -t refapp . && docker run --rm -p 8080:8080 refapp`. This approach is useful if you need just run the reference implementation against your PEPPOL Access Point implementation.
+## Run already prepared application in Docker container
 
-In either case after the app startup, locate your browser to `http://localhost:8080` to check if it is running.
+To do so you have [Docker](https://docs.docker.com/get-started/) installed in your machine.
+This approach is useful if you need just run the reference implementation against your PEPPOL Access Point implementation.
+
+## Docker notes
+
+The prebuild Dockerfile builds the WAR and runs it in Jetty.
+
+Build like this: `docker build -t as2-peppol-server .`
+
+Run like this: `docker run -d --name as2-peppol-server -p 8888:8080 as2-peppol-server`
+
+Locate your browser to `http://localhost:8888` to check if it is running.
+
+Stop like this: `docker stop as2-peppol-server`
+
+And remove like this: `docker rm as2-peppol-server`
+
 
 # Test it
 Now that the AS2 server is running you may have a closer look at my **[as2-peppol-client](https://github.com/phax/as2-peppol-client)** project which lets you send AS2 messages to a server.
