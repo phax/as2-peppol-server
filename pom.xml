@@ -144,7 +144,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>as2-peppol-client</artifactId>
-        <version>3.0.10</version>
+        <version>3.0.11</version>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
