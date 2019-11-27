@@ -130,7 +130,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>peppol-commons-parent-pom</artifactId>
-        <version>7.0.3</version>
+        <version>7.0.4</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -144,7 +144,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>as2-peppol-client</artifactId>
-        <version>3.0.11</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
