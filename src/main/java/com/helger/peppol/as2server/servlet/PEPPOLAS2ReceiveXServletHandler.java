@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import javax.servlet.ServletException;
 
 import com.helger.as2lib.cert.CertificateFactory;
-import com.helger.as2lib.exception.OpenAS2Exception;
+import com.helger.as2lib.exception.AS2Exception;
 import com.helger.as2lib.message.AS2Message;
 import com.helger.as2lib.partner.xml.XMLPartnershipFactory;
 import com.helger.as2lib.processor.DefaultMessageProcessor;
@@ -59,7 +59,7 @@ public class PEPPOLAS2ReceiveXServletHandler extends AbstractAS2ReceiveXServletH
   }
 
   @Override
-  protected AS2Session createAS2Session (@Nonnull final ICommonsMap <String, String> aInitParams) throws OpenAS2Exception,
+  protected AS2Session createAS2Session (@Nonnull final ICommonsMap <String, String> aInitParams) throws AS2Exception,
                                                                                                   ServletException
   {
     final AS2Session ret = new AS2Session ();

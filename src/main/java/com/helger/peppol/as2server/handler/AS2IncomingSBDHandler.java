@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 import org.w3c.dom.Element;
 
-import com.helger.as2lib.exception.OpenAS2Exception;
+import com.helger.as2lib.exception.AS2Exception;
 import com.helger.collection.pair.IPair;
 import com.helger.collection.pair.Pair;
 import com.helger.commons.annotation.IsSPIImplementation;
@@ -67,12 +67,12 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
    *         etc. - depending on the type).
    * @throws PeppolSBDHDocumentReadException
    *         If the SBD does not comply to the PEPPOL rules.
-   * @throws OpenAS2Exception
+   * @throws AS2Exception
    *         In case the payload is not a valid UBL.
    */
   @Nonnull
   public static IPair <EUBL21DocumentType, Object> extractUBLDocument (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws PeppolSBDHDocumentReadException,
-                                                                                                                                          OpenAS2Exception
+                                                                                                                                          AS2Exception
   {
     final InMemoryLogger aErrors = new InMemoryLogger ();
 
@@ -116,7 +116,7 @@ public class AS2IncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
       XMLWriter.writeToStream (aElement, FileHelper.getOutputStream (aFile, EAppend.TRUNCATE));
     LOGGER.error ("Wrote received erroneous SBDH to " + aFile.getAbsolutePath ());
 
-    throw new OpenAS2Exception ("Invalid UBL 2.1 document provided:\n" + aErrors.getAllMessages ());
+    throw new AS2Exception ("Invalid UBL 2.1 document provided:\n" + aErrors.getAllMessages ());
   }
 
   public void handleIncomingSBD (@Nonnull final HttpHeaderMap aHeaders,
