@@ -66,7 +66,7 @@
     <m2e.jpa.activation>false</m2e.jpa.activation>
     <m2e.jsf.activation>false</m2e.jsf.activation>
     <!-- Don't forget to update the Dockerfile when changing something here -->
-    <jetty.version>9.4.21.v20190926</jetty.version>
+    <jetty.version>9.4.26.v20200117</jetty.version>
   </properties>
 
   <dependencyManagement>
@@ -130,7 +130,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>peppol-commons-parent-pom</artifactId>
-        <version>7.0.5</version>
+        <version>7.0.6</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -144,7 +144,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>as2-peppol-client</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.1</version>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
