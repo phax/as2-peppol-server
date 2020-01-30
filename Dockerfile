@@ -53,7 +53,7 @@ WORKDIR /as2-peppol-server
 # so anything copied there in a Dockerfile at build time is lost in /root/.m2/repository
 # To preserve the project dependencies in the image we use special Maven settings
 # for details see https://hub.docker.com/_/maven/
-RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package
+RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package -DskipTests=true
 
 RUN mvn jetty:deploy-war
 #NOTE : please refer to jetty version in './pom.xml'
