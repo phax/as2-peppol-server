@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014-2019 Philip Helger (www.helger.com)
+# Copyright (C) 2014-2020 Philip Helger (www.helger.com)
 # philip[at]helger[dot]com
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,8 +57,7 @@ RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package
 
 RUN mvn jetty:deploy-war
 #NOTE : please refer to jetty version in './pom.xml'
-RUN ls /root/.m2/repository/org/eclipse/jetty/jetty-runner/
-RUN ln -s /root/.m2/repository/org/eclipse/jetty/jetty-runner/9.4.21.v20190926/jetty-runner-9.4.21.v20190926.jar jetty-runner.jar
+RUN ln -s /root/.m2/repository/org/eclipse/jetty/jetty-runner/9.4.26.v20200117/jetty-runner-9.4.26.v20200117.jar jetty-runner.jar
 
 CMD ["java", "-jar", "jetty-runner.jar", "./target/as2-peppol-server-1.0.0-SNAPSHOT.war"]
 

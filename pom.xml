@@ -1,6 +1,6 @@
 <!--
 
-    Copyright (C) 2014-2019 Philip Helger (www.helger.com)
+    Copyright (C) 2014-2020 Philip Helger (www.helger.com)
     philip[at]helger[dot]com
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -66,7 +66,7 @@
     <m2e.jpa.activation>false</m2e.jpa.activation>
     <m2e.jsf.activation>false</m2e.jsf.activation>
     <!-- Don't forget to update the Dockerfile when changing something here -->
-    <jetty.version>9.4.21.v20190926</jetty.version>
+    <jetty.version>9.4.26.v20200117</jetty.version>
   </properties>
 
   <dependencyManagement>
@@ -130,21 +130,21 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>peppol-commons-parent-pom</artifactId>
-        <version>7.0.5</version>
+        <version>7.0.6</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-bdve-parent-pom</artifactId>
-        <version>5.2.3</version>
+        <version>5.2.4</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>as2-peppol-client</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.1</version>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
@@ -273,12 +273,12 @@
           <dependency>
             <groupId>org.ow2.asm</groupId>
             <artifactId>asm</artifactId>
-            <version>7.2</version>
+            <version>7.3.1</version>
           </dependency>
           <dependency>
             <groupId>org.ow2.asm</groupId>
             <artifactId>asm-commons</artifactId>
-            <version>7.2</version>
+            <version>7.3.1</version>
           </dependency>
         </dependencies>
       </plugin>
