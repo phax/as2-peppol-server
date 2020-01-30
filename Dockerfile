@@ -57,6 +57,8 @@ RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package
 
 RUN mvn jetty:deploy-war
 #NOTE : please refer to jetty version in './pom.xml'
+RUN ls /root/.m2/repository/org/eclipse/jetty/jetty-runner/
 RUN ln -s /root/.m2/repository/org/eclipse/jetty/jetty-runner/9.4.21.v20190926/jetty-runner-9.4.21.v20190926.jar jetty-runner.jar
 
 CMD ["java", "-jar", "jetty-runner.jar", "./target/as2-peppol-server-1.0.0-SNAPSHOT.war"]
+
