@@ -26,15 +26,15 @@ import com.helger.xservlet.AbstractXServlet;
  *
  * @author Philip Helger
  */
-public final class PEPPOLAS2ReceiveV1Servlet extends AbstractXServlet
+public final class PeppolAS2ReceiveV1Servlet extends AbstractXServlet
 {
   public static final String SERVLET_DEFAULT_NAME = "as2";
   public static final String SERVLET_DEFAULT_PATH = '/' + SERVLET_DEFAULT_NAME;
 
-  public PEPPOLAS2ReceiveV1Servlet ()
+  public PeppolAS2ReceiveV1Servlet ()
   {
     handlerRegistry ().registerHandler (EHttpMethod.POST,
-                                        new PEPPOLAS2ReceiveXServletHandler (EPeppolAS2Version.V1),
+                                        new PeppolAS2ReceiveXServletHandler (EPeppolAS2Version.V1),
                                         false);
   }
 }

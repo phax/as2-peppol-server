@@ -34,13 +34,13 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.peppol.as2server.app.AppSettings;
 import com.helger.peppol.as2server.app.WebAppSettings;
-import com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveV1Servlet;
-import com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveV2Servlet;
+import com.helger.peppol.as2server.servlet.PeppolAS2ReceiveV1Servlet;
+import com.helger.peppol.as2server.servlet.PeppolAS2ReceiveV2Servlet;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.photon.core.html.AbstractHTMLProvider;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-public final class PEPPOLAS2HtmlProvider extends AbstractHTMLProvider
+public final class PeppolAS2HtmlProvider extends AbstractHTMLProvider
 {
   @Override
   protected void fillHeadAndBody (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
@@ -64,13 +64,13 @@ public final class PEPPOLAS2HtmlProvider extends AbstractHTMLProvider
                               .addChild (new HCCode ().addChild (ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID ()))
                               .addChild (") is located at ")
                               .addChild (new HCA (new SimpleURL (aRequestScope.getContextPath () +
-                                                                 PEPPOLAS2ReceiveV1Servlet.SERVLET_DEFAULT_PATH)).addChild (PEPPOLAS2ReceiveV1Servlet.SERVLET_DEFAULT_PATH))
+                                                                 PeppolAS2ReceiveV1Servlet.SERVLET_DEFAULT_PATH)).addChild (PeppolAS2ReceiveV1Servlet.SERVLET_DEFAULT_PATH))
                               .addChild (" and it can only be accessed via HTTP POST."));
     aBody.addChild (new HCP ().addChild ("The AS2 endpoint for V2 (")
                               .addChild (new HCCode ().addChild (ESMPTransportProfile.TRANSPORT_PROFILE_AS2_V2.getID ()))
                               .addChild (") is located at ")
                               .addChild (new HCA (new SimpleURL (aRequestScope.getContextPath () +
-                                                                 PEPPOLAS2ReceiveV2Servlet.SERVLET_DEFAULT_PATH)).addChild (PEPPOLAS2ReceiveV2Servlet.SERVLET_DEFAULT_PATH))
+                                                                 PeppolAS2ReceiveV2Servlet.SERVLET_DEFAULT_PATH)).addChild (PeppolAS2ReceiveV2Servlet.SERVLET_DEFAULT_PATH))
                               .addChild (" and it can only be accessed via HTTP POST."));
 
     if (GlobalDebug.isDebugMode ())

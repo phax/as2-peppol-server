@@ -21,9 +21,9 @@ import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
 import com.helger.photon.core.servlet.RootXServletHandler;
 import com.helger.xservlet.AbstractXServlet;
 
-public class PEPPOLAS2RootServlet extends AbstractXServlet
+public class PeppolAS2RootServlet extends AbstractXServlet
 {
-  public PEPPOLAS2RootServlet ()
+  public PeppolAS2RootServlet ()
   {
     handlerRegistry ().registerHandler (EHttpMethod.GET,
                                         new RootXServletHandler (AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH));

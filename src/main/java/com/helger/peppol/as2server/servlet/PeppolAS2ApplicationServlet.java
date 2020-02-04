@@ -17,24 +17,28 @@
 package com.helger.peppol.as2server.servlet;
 
 import com.helger.commons.http.EHttpMethod;
-import com.helger.peppol.as2servlet.EPeppolAS2Version;
+import com.helger.peppol.as2server.ui.PeppolAS2HtmlProvider;
+import com.helger.photon.app.html.IHTMLProvider;
+import com.helger.photon.core.servlet.AbstractApplicationXServletHandler;
+import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 import com.helger.xservlet.AbstractXServlet;
 
-/**
- * This servlet is used to accept PEPPOL AS2 v2 messages (for the transport
- * profile <code>busdox-transport-as2-ver2p0</code>)
- *
- * @author Philip Helger
- */
-public final class PEPPOLAS2ReceiveV2Servlet extends AbstractXServlet
+public final class PeppolAS2ApplicationServlet extends AbstractXServlet
 {
-  public static final String SERVLET_DEFAULT_NAME = "as2v2";
+  public static final String SERVLET_DEFAULT_NAME = "secure";
   public static final String SERVLET_DEFAULT_PATH = '/' + SERVLET_DEFAULT_NAME;
 
-  public PEPPOLAS2ReceiveV2Servlet ()
+  public PeppolAS2ApplicationServlet ()
   {
-    handlerRegistry ().registerHandler (EHttpMethod.POST,
-                                        new PEPPOLAS2ReceiveXServletHandler (EPeppolAS2Version.V2),
-                                        false);
+    final AbstractApplicationXServletHandler aHandler = new AbstractApplicationXServletHandler ()
+    {
+      @Override
+      protected IHTMLProvider createHTMLProvider (final IRequestWebScopeWithoutResponse aRequestScope)
+      {
+        return new PeppolAS2HtmlProvider ();
+      }
+    };
+
+    handlerRegistry ().registerHandler (EHttpMethod.GET, aHandler);
   }
 }

@@ -42,11 +42,11 @@ import com.helger.peppol.as2servlet.AS2ServletSBDModule;
 import com.helger.peppol.as2servlet.EPeppolAS2Version;
 import com.helger.photon.app.io.WebFileIO;
 
-public class PEPPOLAS2ReceiveXServletHandler extends AbstractAS2ReceiveXServletHandler
+public class PeppolAS2ReceiveXServletHandler extends AbstractAS2ReceiveXServletHandler
 {
   private final EPeppolAS2Version m_eAS2Version;
 
-  public PEPPOLAS2ReceiveXServletHandler (@Nonnull final EPeppolAS2Version eAS2Version)
+  public PeppolAS2ReceiveXServletHandler (@Nonnull final EPeppolAS2Version eAS2Version)
   {
     ValueEnforcer.notNull (eAS2Version, "AS2Version");
     m_eAS2Version = eAS2Version;

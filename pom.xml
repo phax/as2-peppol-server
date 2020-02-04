@@ -28,7 +28,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <name>as2-peppol-server</name>
   <packaging>war</packaging>
-  <description>An example AS2 server to easily receive AS2 messages from PEPPOL</description>
+  <description>An example AS2 server to easily receive AS2 messages from Peppol</description>
   <url>https://github.com/phax/as2-peppol-server</url>
   <inceptionYear>2014</inceptionYear>
 

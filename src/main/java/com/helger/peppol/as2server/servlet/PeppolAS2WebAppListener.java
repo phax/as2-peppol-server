@@ -52,10 +52,10 @@ import com.helger.xservlet.requesttrack.RequestTracker;
  *
  * @author Philip Helger
  */
-public final class PEPPOLAS2WebAppListener extends WebAppListener
+public final class PeppolAS2WebAppListener extends WebAppListener
 {
   public static final Locale LOCALE_EN_GB = LocaleCache.getInstance ().getLocale ("en", "GB");
-  private static final Logger LOGGER = LoggerFactory.getLogger (PEPPOLAS2WebAppListener.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolAS2WebAppListener.class);
 
   @Override
   protected String getInitParameterDebug (@Nonnull final ServletContext aSC)

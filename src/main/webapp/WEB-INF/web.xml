@@ -22,51 +22,51 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <display-name>as2-peppol-server</display-name>
-  <description>phoss Standalone PEPPOL AS2 server</description>
+  <description>phoss Standalone Peppol AS2 server</description>
   
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>
   
   <listener>
-    <listener-class>com.helger.peppol.as2server.servlet.PEPPOLAS2WebAppListener</listener-class>
+    <listener-class>com.helger.peppol.as2server.servlet.PeppolAS2WebAppListener</listener-class>
   </listener>
   
   <!-- AS2 stuff -->
   <servlet>
-    <servlet-name>PEPPOLAS2ReceiveV1Servlet</servlet-name>
-    <servlet-class>com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveV1Servlet</servlet-class>
+    <servlet-name>PeppolAS2ReceiveV1Servlet</servlet-name>
+    <servlet-class>com.helger.peppol.as2server.servlet.PeppolAS2ReceiveV1Servlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PEPPOLAS2ReceiveV1Servlet</servlet-name>
+    <servlet-name>PeppolAS2ReceiveV1Servlet</servlet-name>
     <url-pattern>/as2/*</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>PEPPOLAS2ReceiveV2Servlet</servlet-name>
-    <servlet-class>com.helger.peppol.as2server.servlet.PEPPOLAS2ReceiveV2Servlet</servlet-class>
+    <servlet-name>PeppolAS2ReceiveV2Servlet</servlet-name>
+    <servlet-class>com.helger.peppol.as2server.servlet.PeppolAS2ReceiveV2Servlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PEPPOLAS2ReceiveV2Servlet</servlet-name>
+    <servlet-name>PeppolAS2ReceiveV2Servlet</servlet-name>
     <url-pattern>/as2v2/*</url-pattern>
   </servlet-mapping>
 
   <!-- UI stuff -->
   <servlet>
-    <servlet-name>PEPPOLAS2ApplicationServlet</servlet-name>
-    <servlet-class>com.helger.peppol.as2server.servlet.PEPPOLAS2ApplicationServlet</servlet-class>
+    <servlet-name>PeppolAS2ApplicationServlet</servlet-name>
+    <servlet-class>com.helger.peppol.as2server.servlet.PeppolAS2ApplicationServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PEPPOLAS2ApplicationServlet</servlet-name>
+    <servlet-name>PeppolAS2ApplicationServlet</servlet-name>
     <url-pattern>/secure/*</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>PEPPOLAS2RootServlet</servlet-name>
-    <servlet-class>com.helger.peppol.as2server.servlet.PEPPOLAS2RootServlet</servlet-class>
+    <servlet-name>PeppolAS2RootServlet</servlet-name>
+    <servlet-class>com.helger.peppol.as2server.servlet.PeppolAS2RootServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PEPPOLAS2RootServlet</servlet-name>
+    <servlet-name>PeppolAS2RootServlet</servlet-name>
     <url-pattern></url-pattern>
   </servlet-mapping>
 </web-app>
