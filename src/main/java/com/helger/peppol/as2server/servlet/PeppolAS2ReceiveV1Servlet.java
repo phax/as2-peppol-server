@@ -26,6 +26,7 @@ import com.helger.xservlet.AbstractXServlet;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class PeppolAS2ReceiveV1Servlet extends AbstractXServlet
 {
   public static final String SERVLET_DEFAULT_NAME = "as2";

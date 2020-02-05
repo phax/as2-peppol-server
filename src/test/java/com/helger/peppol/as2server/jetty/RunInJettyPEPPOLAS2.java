@@ -18,8 +18,8 @@ package com.helger.peppol.as2server.jetty;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.peppol.smpclient.SMPClientConfiguration;
 import com.helger.photon.jetty.JettyStarter;
+import com.helger.smpclient.config.SMPClientConfiguration;
 
 /**
  * Run as2-peppol-server as a standalone web application in Jetty on port 8080.

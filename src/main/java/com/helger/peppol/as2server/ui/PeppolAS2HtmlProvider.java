@@ -40,6 +40,7 @@ import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.photon.core.html.AbstractHTMLProvider;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
+@SuppressWarnings ("deprecation")
 public final class PeppolAS2HtmlProvider extends AbstractHTMLProvider
 {
   @Override
@@ -60,7 +61,7 @@ public final class PeppolAS2HtmlProvider extends AbstractHTMLProvider
     if (WebAppSettings.isTestVersion ())
       aBody.addChild (new HCH2 ().addChild ("TEST version!"));
     aBody.addChild (new HCP ().addChild ("This site has no further user interface."));
-    aBody.addChild (new HCP ().addChild ("The AS2 endpoint for V1 (")
+    aBody.addChild (new HCP ().addChild ("The AS2 endpoint for (deprecated) V1 (")
                               .addChild (new HCCode ().addChild (ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID ()))
                               .addChild (") is located at ")
                               .addChild (new HCA (new SimpleURL (aRequestScope.getContextPath () +
