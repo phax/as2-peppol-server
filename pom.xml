@@ -123,7 +123,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>as2-lib-parent-pom</artifactId>
-        <version>4.5.0</version>
+        <version>4.5.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -144,12 +144,12 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>as2-peppol-client</artifactId>
-        <version>3.3.0-SNAPSHOT</version>
+        <version>3.3.0</version>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>as2-peppol-servlet</artifactId>
-        <version>5.3.0-SNAPSHOT</version>
+        <version>5.3.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
