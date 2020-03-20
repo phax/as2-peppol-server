@@ -2,6 +2,16 @@
 
 [![Build Status](https://travis-ci.org/phax/as2-peppol-server.svg?branch=master)](https://travis-ci.org/phax/as2-peppol-server)
 ﻿
+# Status migration AS2 &rarr; AS4
+
+Peppol migrated to AS4 as the mandatory transport protocol as of February 1<sup>st</sup>, 2020.
+The support of AS2 will be gracefully faded out.
+Personally I wouldn't recommend to start new Peppol AS2 projects.
+
+See **phase4** as an AS4 solution that can send and receive Peppol Messages: https://github.com/phax/phase4
+
+# Introduction
+﻿
 A demo AS2 server to easily receive AS2 messages from PEPPOL.
 This project is only meant as a demo project for illustrative purposes, on how to
 implement a PEPPOL AS2 server. This server implementation writes all incoming documents to disc and does not do anything else with them! Additional or different logic must be implemented!
